@@ -40,16 +40,10 @@
         <h2 class="score__title">■1ゲーム目</h2>
         <div class="score__child">
           <div class="score__head">
-            <ScoreHead :player="this.$store.state.players[0]" :serve="this.$store.state.serves[0][0]" />
-            <ScoreHead :player="this.$store.state.players[1]" :serve="this.$store.state.serves[0][1]" />
-            <ScoreHead :player="this.$store.state.players[2]" :serve="this.$store.state.serves[0][2]" />
-            <ScoreHead :player="this.$store.state.players[3]" :serve="this.$store.state.serves[0][3]" />
+            <ScoreHead v-for="i in 4" :key="(i-1)" :game="0" :player="(i-1)" />
           </div>
           <div class="score__body">
-            <ScoreBody :score="this.$store.state.scores[0][0]" />
-            <ScoreBody :score="this.$store.state.scores[0][1]" />
-            <ScoreBody :score="this.$store.state.scores[0][2]" />
-            <ScoreBody :score="this.$store.state.scores[0][3]" />
+            <ScoreBody v-for="i in 4" :key="(i-1)" :game="0" :player="(i-1)" />
           </div>
         </div>
       </section>
@@ -57,16 +51,10 @@
         <h2 class="score__title">■2ゲーム目</h2>
         <div class="score__child">
           <div class="score__head">
-            <ScoreHead :player="this.$store.state.players[0]" :serve="this.$store.state.serves[1][0]" />
-            <ScoreHead :player="this.$store.state.players[1]" :serve="this.$store.state.serves[1][1]" />
-            <ScoreHead :player="this.$store.state.players[2]" :serve="this.$store.state.serves[1][2]" />
-            <ScoreHead :player="this.$store.state.players[3]" :serve="this.$store.state.serves[1][3]" />
+            <ScoreHead v-for="i in 4" :key="(i-1)" :game="1" :player="(i-1)" />
           </div>
           <div class="score__body">
-            <ScoreBody :score="this.$store.state.scores[1][0]" />
-            <ScoreBody :score="this.$store.state.scores[1][1]" />
-            <ScoreBody :score="this.$store.state.scores[1][2]" />
-            <ScoreBody :score="this.$store.state.scores[1][3]" />
+            <ScoreBody v-for="i in 4" :key="(i-1)" :game="1" :player="(i-1)" />
           </div>
         </div>
       </section>
@@ -74,16 +62,10 @@
         <h2 class="score__title">■3ゲーム目</h2>
         <div class="score__child">
           <div class="score__head">
-            <ScoreHead :player="this.$store.state.players[0]" :serve="this.$store.state.serves[2][0]" />
-            <ScoreHead :player="this.$store.state.players[1]" :serve="this.$store.state.serves[2][1]" />
-            <ScoreHead :player="this.$store.state.players[2]" :serve="this.$store.state.serves[2][2]" />
-            <ScoreHead :player="this.$store.state.players[3]" :serve="this.$store.state.serves[2][3]" />
+            <ScoreHead v-for="i in 4" :key="(i-1)" :game="2" :player="(i-1)" />
           </div>
           <div class="score__body">
-            <ScoreBody :score="this.$store.state.scores[2][0]" />
-            <ScoreBody :score="this.$store.state.scores[2][1]" />
-            <ScoreBody :score="this.$store.state.scores[2][2]" />
-            <ScoreBody :score="this.$store.state.scores[2][3]" />
+            <ScoreBody v-for="i in 4" :key="(i-1)" :game="2" :player="(i-1)" />
           </div>
         </div>
       </section>
@@ -108,6 +90,7 @@ export default {
   data() {
     return {}
   },
+  methods: {},
 }
 </script>
 

@@ -1,20 +1,24 @@
 <template>
   <table>
     <tr>
-      <td class="cell" v-for="(cell,index) in score" :key="index">
-        <div class="cell_div" v-text="cell.num" @click="cell.input = true"></div>
+      <td class="cell" v-for="(cell,index) in this.$store.state.scores[game][player]" :key="index" @click="setScore({ game, player, index })">
+        {{cell.num}}
       </td>
     </tr>
   </table>
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 export default {
   name: 'ScoreBody',
   data() {
     return {}
   },
-  props: ['score'],
+  props: ['game', 'player'],
+  methods: {
+    ...mapMutations(['setScore']),
+  },
 }
 </script>
 
@@ -32,6 +36,7 @@ td {
 }
 td {
   text-align: center;
+  vertical-align: middle;
 }
 
 .cell {

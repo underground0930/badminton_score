@@ -1,8 +1,8 @@
 <template>
   <table>
     <tr>
-      <th class="name">{{player.name}}</th>
-      <td class="serve">{{serve}}</td>
+      <th class="name">{{this.$store.state.players[player].name}}</th>
+      <td class="serve">{{this.$store.state.serves[game][player]}}</td>
     </tr>
   </table>
 </template>
@@ -13,7 +13,7 @@ export default {
   data() {
     return {}
   },
-  props: ['player', 'serve'],
+  props: ['player', 'game'],
 }
 </script>
 
