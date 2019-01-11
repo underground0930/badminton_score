@@ -3,36 +3,57 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+const score = () => {
+  return [...Array(100)].map((item, index) => {
+    return { num: null, input: false, index: index }
+  })
+}
+
 const store = new Vuex.Store({
   state: {
-    totalScore: [0, 0],
+    totalScoreA: [0, 0, 0],
+    totalScoreB: [0, 0, 0],
     order: [0, 2, 1, 3],
     currentOrder: 0,
     players: [
       {
-        name: 'Aさん',
+        name: 'AAAAAAAAさん',
+        team: 'チームうどんこ',
         serve: 'S',
-        score: [0, 1, 2],
+        score: [score(), score(), score()],
       },
       {
         name: 'Bさん',
+        team: 'チームうどんこ',
         serve: '',
-        score: [null, null, null],
+        score: [score(), score(), score()],
       },
       {
         name: 'Cさん',
+        team: 'チームYYY',
         serve: '',
-        score: [null, null, null],
+        score: [score(), score(), score()],
       },
       {
         name: 'Dさん',
+        team: 'チームZZZ',
         serve: 'R',
-        score: [null, null, null],
+        score: [score(), score(), score()],
       },
     ],
   },
   getters: {},
-  mutations: {},
+  mutations: {
+    setOrder(state, payload) {
+      // 最初に点数の入る順番を決める、
+    },
+    changeCurrentOrder(state, payload) {
+      // 現在の得点者を切り替える
+    },
+    setTotalScore(state, payload) {
+      // 点数を
+    },
+  },
   actions: {},
 })
 

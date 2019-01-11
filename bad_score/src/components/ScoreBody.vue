@@ -1,0 +1,57 @@
+<template>
+  <table>
+    <tr>
+      <td class="cell" v-for="(cell,index) in score" :key="index">
+        <div class="cell_div" v-text="cell.num" @click="cell.input = true"></div>
+      </td>
+    </tr>
+  </table>
+</template>
+
+<script>
+export default {
+  name: 'ScoreBody',
+  data() {
+    return {}
+  },
+  props: ['score'],
+}
+</script>
+
+<style scoped lang="scss">
+table {
+  table-layout: fixed;
+  width: 100%;
+}
+th,
+td {
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
+  width: 10px;
+  height: 2em;
+}
+td {
+  text-align: center;
+}
+.name {
+  width: 6em;
+}
+.serve {
+  width: 1em;
+  font-weight: bold;
+}
+.cell {
+  width: 1em;
+}
+.cell_div {
+  width: 100%;
+  padding: 4px;
+  box-sizing: border-box;
+}
+.cell_input {
+  width: 100%;
+  padding: 4px;
+  border: none;
+  box-sizing: border-box;
+}
+</style>
