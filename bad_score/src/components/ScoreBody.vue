@@ -33,25 +33,8 @@ td {
 td {
   text-align: center;
 }
-.name {
-  width: 6em;
-}
-.serve {
-  width: 1em;
-  font-weight: bold;
-}
+
 .cell {
-  width: 1em;
-}
-.cell_div {
-  width: 100%;
-  padding: 4px;
-  box-sizing: border-box;
-}
-.cell_input {
-  width: 100%;
-  padding: 4px;
-  border: none;
-  box-sizing: border-box;
+  width: 1.3em;
 }
 </style>

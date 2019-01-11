@@ -2,7 +2,7 @@
   <table>
     <tr>
       <th class="name">{{player.name}}</th>
-      <td class="serve">{{player.serve}}</td>
+      <td class="serve">{{serve}}</td>
     </tr>
   </table>
 </template>
@@ -13,7 +13,7 @@ export default {
   data() {
     return {}
   },
-  props: ['player'],
+  props: ['player', 'serve'],
 }
 </script>
 

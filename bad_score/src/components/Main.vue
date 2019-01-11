@@ -14,13 +14,13 @@
       <div class="header__winGames">1</div>
         <div class="header__results">
           <div class="header__result">
-            <span>{{this.$store.state.totalScoreA[0]}}</span> - <span>{{this.$store.state.totalScoreB[0]}}</span>
+            <span>{{this.$store.state.totalScore[0][0]}}</span> - <span>{{this.$store.state.totalScore[0][1]}}</span>
           </div>
           <div class="header__result">
-            <span>{{this.$store.state.totalScoreA[1]}}</span> - <span>{{this.$store.state.totalScoreB[1]}}</span>
+            <span>{{this.$store.state.totalScore[1][0]}}</span> - <span>{{this.$store.state.totalScore[1][1]}}</span>
           </div>
           <div class="header__result">
-            <span>{{this.$store.state.totalScoreA[2]}}</span> - <span>{{this.$store.state.totalScoreB[2]}}</span>
+            <span>{{this.$store.state.totalScore[2][0]}}</span> - <span>{{this.$store.state.totalScore[2][1]}}</span>
           </div>
         </div>
       <div class="header__winGames">2</div>
@@ -40,16 +40,16 @@
         <h2 class="score__title">■1ゲーム目</h2>
         <div class="score__child">
           <div class="score__head">
-            <ScoreHead :player="this.$store.state.players[0]" />
-            <ScoreHead :player="this.$store.state.players[1]" />
-            <ScoreHead :player="this.$store.state.players[2]" />
-            <ScoreHead :player="this.$store.state.players[3]" />
+            <ScoreHead :player="this.$store.state.players[0]" :serve="this.$store.state.serves[0][0]" />
+            <ScoreHead :player="this.$store.state.players[1]" :serve="this.$store.state.serves[0][1]" />
+            <ScoreHead :player="this.$store.state.players[2]" :serve="this.$store.state.serves[0][2]" />
+            <ScoreHead :player="this.$store.state.players[3]" :serve="this.$store.state.serves[0][3]" />
           </div>
           <div class="score__body">
-            <ScoreBody :score="this.$store.state.players[0].score[0]" />
-            <ScoreBody :score="this.$store.state.players[1].score[0]" />
-            <ScoreBody :score="this.$store.state.players[2].score[0]" />
-            <ScoreBody :score="this.$store.state.players[3].score[0]" />
+            <ScoreBody :score="this.$store.state.scores[0][0]" />
+            <ScoreBody :score="this.$store.state.scores[0][1]" />
+            <ScoreBody :score="this.$store.state.scores[0][2]" />
+            <ScoreBody :score="this.$store.state.scores[0][3]" />
           </div>
         </div>
       </section>
@@ -57,16 +57,16 @@
         <h2 class="score__title">■2ゲーム目</h2>
         <div class="score__child">
           <div class="score__head">
-            <ScoreHead :player="this.$store.state.players[0]" />
-            <ScoreHead :player="this.$store.state.players[1]" />
-            <ScoreHead :player="this.$store.state.players[2]" />
-            <ScoreHead :player="this.$store.state.players[3]" />
+            <ScoreHead :player="this.$store.state.players[0]" :serve="this.$store.state.serves[1][0]" />
+            <ScoreHead :player="this.$store.state.players[1]" :serve="this.$store.state.serves[1][1]" />
+            <ScoreHead :player="this.$store.state.players[2]" :serve="this.$store.state.serves[1][2]" />
+            <ScoreHead :player="this.$store.state.players[3]" :serve="this.$store.state.serves[1][3]" />
           </div>
           <div class="score__body">
-            <ScoreBody :score="this.$store.state.players[0].score[1]" />
-            <ScoreBody :score="this.$store.state.players[1].score[1]" />
-            <ScoreBody :score="this.$store.state.players[2].score[1]" />
-            <ScoreBody :score="this.$store.state.players[3].score[1]" />
+            <ScoreBody :score="this.$store.state.scores[1][0]" />
+            <ScoreBody :score="this.$store.state.scores[1][1]" />
+            <ScoreBody :score="this.$store.state.scores[1][2]" />
+            <ScoreBody :score="this.$store.state.scores[1][3]" />
           </div>
         </div>
       </section>
@@ -74,16 +74,16 @@
         <h2 class="score__title">■3ゲーム目</h2>
         <div class="score__child">
           <div class="score__head">
-            <ScoreHead :player="this.$store.state.players[0]" />
-            <ScoreHead :player="this.$store.state.players[1]" />
-            <ScoreHead :player="this.$store.state.players[2]" />
-            <ScoreHead :player="this.$store.state.players[3]" />
+            <ScoreHead :player="this.$store.state.players[0]" :serve="this.$store.state.serves[2][0]" />
+            <ScoreHead :player="this.$store.state.players[1]" :serve="this.$store.state.serves[2][1]" />
+            <ScoreHead :player="this.$store.state.players[2]" :serve="this.$store.state.serves[2][2]" />
+            <ScoreHead :player="this.$store.state.players[3]" :serve="this.$store.state.serves[2][3]" />
           </div>
           <div class="score__body">
-            <ScoreBody :score="this.$store.state.players[0].score[2]" />
-            <ScoreBody :score="this.$store.state.players[1].score[2]" />
-            <ScoreBody :score="this.$store.state.players[2].score[2]" />
-            <ScoreBody :score="this.$store.state.players[3].score[2]" />
+            <ScoreBody :score="this.$store.state.scores[2][0]" />
+            <ScoreBody :score="this.$store.state.scores[2][1]" />
+            <ScoreBody :score="this.$store.state.scores[2][2]" />
+            <ScoreBody :score="this.$store.state.scores[2][3]" />
           </div>
         </div>
       </section>
