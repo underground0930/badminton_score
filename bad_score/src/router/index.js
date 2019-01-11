@@ -1,23 +1,23 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import PageIndex from '@/pages/PageIndex'
-import PageDetail from '@/pages/PageDetail'
+import Index from '@/pages/Index'
+import Main from '@/pages/Main'
 
 Vue.use(Router)
 
 export default new Router({
   mode: 'history',
-  base: '/demo/vueFlickerApp/',
+  base: '/',
   routes: [
     {
       name: 'index',
       path: '/',
-      component: PageIndex,
+      component: Index,
     },
     {
-      name: 'detail',
-      path: '/:id(\\d+)',
-      component: PageDetail,
+      name: 'main',
+      path: '/main',
+      component: Main,
     },
   ],
 })

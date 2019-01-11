@@ -4,7 +4,7 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const score = () => {
-  return [...Array(100)].map((item, index) => {
+  return [...Array(70)].map((item, index) => {
     return { num: null, input: false, index: index }
   })
 }
@@ -12,6 +12,7 @@ const score = () => {
 const store = new Vuex.Store({
   state: {
     isSingle: false,
+    setting: false,
     index: 0,
     totalScore: [[0, 0], [0, 0], [0, 0]],
     order: [0, 3, 1, 2],

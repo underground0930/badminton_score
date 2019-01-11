@@ -1,6 +1,6 @@
 <template>
   <div class="wrapper">
-    <h1 class="mainTitle">スコアシート</h1>
+    <h1 class="mainTitle">バドミントンスコアシート</h1>
     <!-- header -->
     <header class="header">
       <div class="header__names">
@@ -75,8 +75,8 @@
 </template>
 
 <script>
-import ScoreHead from './ScoreHead'
-import ScoreBody from './ScoreBody'
+import ScoreHead from '../components/ScoreHead'
+import ScoreBody from '../components/ScoreBody'
 
 export default {
   name: 'Main',
