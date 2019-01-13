@@ -54,7 +54,7 @@
       </li>
       <li class="list">
         <dl class="list__child">
-          <dt>■セティング</dt>
+          <dt>■セティング<span>(max30点で終了です)</span></dt>
           <dd>
             <label>
               <input
@@ -77,7 +77,7 @@
       </li>
       <li class="list">
         <dl>
-          <dt>■1ゲームの得点(11 ~ 30)</dt>
+          <dt>■1ゲームの得点<span>(11 ~ 30)</span></dt>
           <dd>
             <input
               type='number'
@@ -164,5 +164,9 @@ export default {
     font-weight: bold;
     font-size: 16px;
   }
+}
+input[type='text'],
+input[type='number'] {
+  font-size: 16px;
 }
 </style>

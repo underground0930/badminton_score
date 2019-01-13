@@ -160,11 +160,11 @@ export default {
   position: absolute;
   left: 0;
   top: 0;
-  width: 7em;
+  width: 10em;
   background: #fff;
 }
 .score__body {
-  padding-left: 7em;
+  padding-left: 10em;
   overflow-x: scroll;
 }
 </style>

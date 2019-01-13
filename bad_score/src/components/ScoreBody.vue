@@ -31,7 +31,6 @@ th,
 td {
   border-right: 1px solid #000;
   border-bottom: 1px solid #000;
-  width: 10px;
   height: 2em;
 }
 td {
@@ -40,6 +39,6 @@ td {
 }
 
 .cell {
-  width: 1.3em;
+  width: 1.5em;
 }
 </style>
