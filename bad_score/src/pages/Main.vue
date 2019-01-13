@@ -1,35 +1,34 @@
 <template>
-  <div class="wrapper">
-    <h1 class="mainTitle">バドミントンスコアシート</h1>
+  <main>
     <!-- header -->
     <header class="header">
       <div class="header__names">
         <div class="header__name">
-          {{this.$store.state.players[0].team}}・{{this.$store.state.players[0].name}}
+          <span v-if="players(0).team">{{players(0).team}}・</span>{{players(0).name}}
         </div>
-        <div class="header__name">
-          {{this.$store.state.players[1].team}}・{{this.$store.state.players[1].name}}
+        <div class="header__name" v-if="config.type === 1">
+          <span v-if="players(2).team">{{players(2).team}}・</span>{{players(2).name}}
         </div>
       </div>
       <div class="header__winGames">1</div>
-        <div class="header__results">
-          <div class="header__result">
-            <span>{{this.$store.state.totalScore[0][0]}}</span> - <span>{{this.$store.state.totalScore[0][1]}}</span>
-          </div>
-          <div class="header__result">
-            <span>{{this.$store.state.totalScore[1][0]}}</span> - <span>{{this.$store.state.totalScore[1][1]}}</span>
-          </div>
-          <div class="header__result">
-            <span>{{this.$store.state.totalScore[2][0]}}</span> - <span>{{this.$store.state.totalScore[2][1]}}</span>
-          </div>
+      <div class="header__results">
+        <div class="header__result">
+          <span>{{totalScore(0,0)}}</span> - <span>{{totalScore(0,1)}}</span>
         </div>
+        <div class="header__result">
+          <span>{{totalScore(1,0)}}</span> - <span>{{totalScore(1,1)}}</span>
+        </div>
+        <div class="header__result">
+          <span>{{totalScore(2,0)}}</span> - <span>{{totalScore(2,1)}}</span>
+        </div>
+      </div>
       <div class="header__winGames">2</div>
       <div class="header__names">
         <div class="header__name">
-          {{this.$store.state.players[2].team}}・{{this.$store.state.players[2].name}}
+          <span v-if="players(1).team">{{players(1).team}}・</span>{{players(1).name}}
         </div>
-        <div class="header__name">
-          {{this.$store.state.players[3].team}}・{{this.$store.state.players[3].name}}
+        <div class="header__name" v-if="config.type === 1">
+          <span v-if="players(3).team">{{players(3).team}}・</span>{{players(3).name}}
         </div>
       </div>
     </header>
@@ -40,10 +39,16 @@
         <h2 class="score__title">■1ゲーム目</h2>
         <div class="score__child">
           <div class="score__head">
-            <ScoreHead v-for="i in 4" :key="(i-1)" :game="0" :player="(i-1)" />
+            <ScoreHead :game="0" :player="0" />
+            <ScoreHead :game="0" :player="2" v-if="config.type === 1" />
+            <ScoreHead :game="0" :player="1" />
+            <ScoreHead :game="0" :player="3" v-if="config.type === 1" />
           </div>
           <div class="score__body">
-            <ScoreBody v-for="i in 4" :key="(i-1)" :game="0" :player="(i-1)" />
+            <ScoreBody :game="0" :player="0" />
+            <ScoreBody :game="0" :player="2" v-if="config.type === 1" />
+            <ScoreBody :game="0" :player="1" />
+            <ScoreBody :game="0" :player="3" v-if="config.type === 1" />
           </div>
         </div>
       </section>
@@ -51,10 +56,16 @@
         <h2 class="score__title">■2ゲーム目</h2>
         <div class="score__child">
           <div class="score__head">
-            <ScoreHead v-for="i in 4" :key="(i-1)" :game="1" :player="(i-1)" />
+            <ScoreHead :game="1" :player="0" />
+            <ScoreHead :game="1" :player="2" v-if="config.type === 1" />
+            <ScoreHead :game="1" :player="1" />
+            <ScoreHead :game="1" :player="3" v-if="config.type === 1" />
           </div>
           <div class="score__body">
-            <ScoreBody v-for="i in 4" :key="(i-1)" :game="1" :player="(i-1)" />
+            <ScoreBody :game="1" :player="0" />
+            <ScoreBody :game="1" :player="2" v-if="config.type === 1" />
+            <ScoreBody :game="1" :player="1" />
+            <ScoreBody :game="1" :player="3" v-if="config.type === 1" />
           </div>
         </div>
       </section>
@@ -62,27 +73,31 @@
         <h2 class="score__title">■3ゲーム目</h2>
         <div class="score__child">
           <div class="score__head">
-            <ScoreHead v-for="i in 4" :key="(i-1)" :game="2" :player="(i-1)" />
+            <ScoreHead :game="2" :player="0" />
+            <ScoreHead :game="2" :player="2" v-if="config.type === 1" />
+            <ScoreHead :game="2" :player="1" />
+            <ScoreHead :game="2" :player="3" v-if="config.type === 1" />
           </div>
           <div class="score__body">
-            <ScoreBody v-for="i in 4" :key="(i-1)" :game="2" :player="(i-1)" />
+            <ScoreBody :game="2" :player="0" />
+            <ScoreBody :game="2" :player="2" v-if="config.type === 1" />
+            <ScoreBody :game="2" :player="1" />
+            <ScoreBody :game="2" :player="3" v-if="config.type === 1" />
           </div>
         </div>
       </section>
     </div>
     <!--/ score -->
-  </div>
+  </main>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import ScoreHead from '../components/ScoreHead'
 import ScoreBody from '../components/ScoreBody'
 
 export default {
   name: 'Main',
-  props: {
-    msg: String,
-  },
   components: {
     ScoreHead,
     ScoreBody,
@@ -90,23 +105,14 @@ export default {
   data() {
     return {}
   },
+  computed: {
+    ...mapGetters(['players', 'totalScore', 'config']),
+  },
   methods: {},
 }
 </script>
 
 <style scoped lang="scss">
-/* 全体 */
-.wrapper {
-  padding: 20px 30px;
-  border: 5px solid #3cbe30;
-}
-.mainTitle {
-  font-size: 20px;
-  font-weight: bold;
-  margin: 0 0 30px;
-  text-align: center;
-}
-
 /* header */
 .header {
   display: flex;

@@ -1,81 +1,171 @@
 <template>
-  <div class="wrapper">
-    <h1 class="mainTitle">バドミントンスコアシート</h1>
-  </div>
+  <main>
+    <ul class="lists">
+      <li class="list">
+        <dl class="list__child">
+          <dt>■種目</dt>
+          <dd>
+            <label>
+              <input
+                type='radio'
+                value="0"
+                v-model.number="config.type"
+              > シングルス
+            </label>
+          </dd>
+          <dd>
+            <label>
+              <input
+                type='radio'
+                value="1"
+                v-model.number="config.type"
+              > ダブルス
+            </label>
+          </dd>
+        </dl>
+      </li>
+      <li class="list">
+        <dl class="list__child">
+          <dt>■メンバー</dt>
+          <dd class="member">
+            <ul>
+              <li>
+                <input type='text' v-model="players[0].team" placeholder="チーム名"><br>
+                <input type='text' v-model="players[0].name" placeholder="名前1">
+              </li>
+              <li v-if="config.type === 1">
+                <input type='text' v-model="players[2].team" placeholder="チーム名"><br>
+                <input type='text' v-model="players[2].name" placeholder="名前3">
+              </li>
+            </ul>
+            <p>vs</p>
+            <ul>
+              <li>
+                <input type='text' v-model="players[1].team" placeholder="チーム名"><br>
+                <input type='text' v-model="players[1].name" placeholder="名前2">
+              </li>
+              <li v-if="config.type === 1">
+                <input type='text' v-model="players[3].team" placeholder="チーム名"><br>
+                <input type='text' v-model="players[3].name" placeholder="名前4">
+              </li>
+            </ul>
+          </dd>
+        </dl>
+      </li>
+      <li class="list">
+        <dl class="list__child">
+          <dt>■セティング</dt>
+          <dd>
+            <label>
+              <input
+                type='radio'
+                value="0"
+                v-model.number="config.setting"
+              > なし
+            </label>
+          </dd>
+          <dd>
+            <label>
+              <input
+                type='radio'
+                value="1"
+                v-model.number="config.setting"
+              > あり
+            </label>
+          </dd>
+        </dl>
+      </li>
+      <li class="list">
+        <dl>
+          <dt>■1ゲームの得点</dt>
+          <dd>
+            <input
+              type='number'
+              max="30"
+              min="11"
+              v-model.number="config.point"
+            > 点
+          </dd>
+        </dl>
+      </li>
+    </ul>
+    <div>
+      <router-link to="/main">スコアをつける</router-link>
+    </div>
+  </main>
+
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 export default {
   name: 'Index',
-  props: {
-    msg: String,
-  },
   components: {},
   data() {
-    return {}
+    return {
+      config: {
+        type: 0,
+        setting: 1,
+        point: 21,
+      },
+      players: [
+        {
+          name: '',
+          team: '',
+        },
+        {
+          name: '',
+          team: '',
+        },
+        {
+          name: '',
+          team: '',
+        },
+        {
+          name: '',
+          team: '',
+        },
+      ],
+    }
   },
-  methods: {},
+  methods: {
+    ...mapMutations(['init']),
+  },
+  beforeRouteLeave(to, from, next) {
+    if (confirm('上記の設定でスコアシートを作成しますか？')) {
+      console.log(to)
+      console.log(from)
+      this.init({ config: this.config, players: this.players })
+      // next(true)
+      next(false)
+    } else {
+      next(false)
+    }
+  },
 }
 </script>
 
 <style scoped lang="scss">
-/* 全体 */
-.wrapper {
-  padding: 20px 30px;
-  border: 5px solid #3cbe30;
+.list {
+  margin: 0 0 20px;
+  dt {
+    font-weight: bold;
+    margin: 0 0 5px;
+  }
+  li {
+    font-size: 16px;
+    &:last-child {
+      margin: 10px 0 0;
+    }
+  }
 }
-.mainTitle {
-  font-size: 20px;
-  font-weight: bold;
-  margin: 0 0 30px;
-  text-align: center;
-}
-
-/* header */
-.header {
+.member {
   display: flex;
-  justify-content: center;
   align-items: center;
-  margin: 0 0 20px;
-}
-.header__names {
-  border-top: 1px solid #000;
-  border-left: 1px solid #000;
-  border-right: 1px solid #000;
-}
-.header__name {
-  border-bottom: 1px solid #000;
-  padding: 5px;
-  font-size: 14px;
-}
-.header__winGames {
-  border: 1px solid #000;
-  padding: 5px;
-  margin: 0 20px 0;
-  font-weight: bold;
-}
-
-/* score */
-.score__section {
-  margin: 0 0 20px;
-}
-.score__title {
-  margin: 0 0 10px;
-}
-.score__child {
-  position: relative;
-  display: flex;
-  border-top: 1px solid #000;
-}
-.score__head {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 7em;
-  background: #fff;
-}
-.score__body {
-  padding-left: 7em;
-  overflow-x: scroll;
+  p {
+    padding: 0 10px 0;
+    font-weight: bold;
+    font-size: 16px;
+  }
 }
 </style>
