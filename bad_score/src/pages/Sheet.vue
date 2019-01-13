@@ -97,7 +97,7 @@ import ScoreHead from '../components/ScoreHead'
 import ScoreBody from '../components/ScoreBody'
 
 export default {
-  name: 'Main',
+  name: 'Sheet',
   components: {
     ScoreHead,
     ScoreBody,
@@ -109,6 +109,13 @@ export default {
     ...mapGetters(['players', 'totalScore', 'config']),
   },
   methods: {},
+  beforeRouteEnter(to, from, next) {
+    if (from.name === 'index') {
+      next()
+    } else {
+      next({ path: '/' })
+    }
+  },
 }
 </script>
 

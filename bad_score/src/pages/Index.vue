@@ -77,7 +77,7 @@
       </li>
       <li class="list">
         <dl>
-          <dt>■1ゲームの得点</dt>
+          <dt>■1ゲームの得点(11 ~ 30)</dt>
           <dd>
             <input
               type='number'
@@ -90,7 +90,7 @@
       </li>
     </ul>
     <div>
-      <router-link to="/main">スコアをつける</router-link>
+      <router-link to="/sheet" tag="button">スコアをつける</router-link>
     </div>
   </main>
 
@@ -133,11 +133,8 @@ export default {
   },
   beforeRouteLeave(to, from, next) {
     if (confirm('上記の設定でスコアシートを作成しますか？')) {
-      console.log(to)
-      console.log(from)
       this.init({ config: this.config, players: this.players })
-      // next(true)
-      next(false)
+      next()
     } else {
       next(false)
     }
