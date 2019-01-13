@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapActions } from 'vuex'
 export default {
   name: 'ScoreBody',
   data() {
@@ -17,7 +17,7 @@ export default {
   },
   props: ['game', 'player'],
   methods: {
-    ...mapMutations(['setScore']),
+    ...mapActions(['setScore']),
   },
 }
 </script>

@@ -1,5 +1,8 @@
 <template>
   <main>
+    <!-- modal -->
+    <Modal />
+    <!--/ modal -->
     <!-- header -->
     <header class="header">
       <div class="header__names">
@@ -95,12 +98,14 @@
 import { mapGetters } from 'vuex'
 import ScoreHead from '../components/ScoreHead'
 import ScoreBody from '../components/ScoreBody'
+import Modal from '../components/Modal'
 
 export default {
   name: 'Sheet',
   components: {
     ScoreHead,
     ScoreBody,
+    Modal,
   },
   data() {
     return {}
@@ -142,6 +147,9 @@ export default {
   padding: 5px;
   margin: 0 20px 0;
   font-weight: bold;
+}
+.header__result {
+  text-align: center;
 }
 
 /* score */
