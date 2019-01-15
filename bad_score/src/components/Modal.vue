@@ -7,13 +7,13 @@
           <ul class="modal__lists">
             <li class="modal__list">
               <span>[S]サーブ</span>
-              <select name='serve'>
+              <select name='serve' v-model="serveS">
                 <option v-for="(player,index) in players" :key="index" :value="index">{{player.team}}・{{player.name}}</option>
               </select>
             </li>
             <li class="modal__list">
               <span>[R]レシーブ</span>
-              <select name='recieve'>
+              <select name='recieve' v-model="serveR">
                 <option v-for="(player,index) in players" :key="index" :value="index">{{player.team}}・{{player.name}}</option>
               </select>
             </li>
@@ -35,13 +35,33 @@
 export default {
   name: 'Modal',
   data() {
-    return {}
+    return {
+      serveS: '',
+      serveR: '',
+    }
   },
-  props: ['players', 'serves', 'game'],
+  created() {
+    let count = 0
+    this.init(this.game)
+    this.serve.forEach(v => {
+      if (v === 'S') {
+        this.serveS = count
+      } else if (v === 'R') {
+        this.serveR = count
+      }
+      count++
+    })
+  },
+  props: ['game'],
   methods: {
+    init(game) {
+      this.players = this.$store.getters.players
+      this.serve = this.$store.getters.serves[game]
+    },
     close() {
       this.$emit('close')
     },
+    check() {},
   },
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
   <main>
     <!-- modal -->
-    <Modal v-if="modal" :players="players" :serves="serves" :game="game" @close="hideModal"  />
+    <Modal v-if="modal" :game="game" @close="hideModal"  />
     <!--/ modal -->
     <!-- header -->
     <header class="header">
@@ -10,7 +10,7 @@
           <span v-if="player(0).team">{{player(0).team}}・</span>{{player(0).name}}
         </div>
         <div class="header__name" v-if="config.type === 1">
-          <span v-if="player(1).team">{{player(1).team}}・</span>{{player(1).name}}
+          <span v-if="player(2).team">{{player(2).team}}・</span>{{player(2).name}}
         </div>
       </div>
       <div class="header__winGames">1</div>
@@ -28,7 +28,7 @@
       <div class="header__winGames">2</div>
       <div class="header__names">
         <div class="header__name">
-          <span v-if="player(2).team">{{player(2).team}}・</span>{{player(2).name}}
+          <span v-if="player(1).team">{{player(1).team}}・</span>{{player(1).name}}
         </div>
         <div class="header__name" v-if="config.type === 1">
           <span v-if="player(3).team">{{player(3).team}}・</span>{{player(3).name}}
@@ -46,14 +46,14 @@
         <div class="score__child">
           <div class="score__head">
             <ScoreHead :game="0" :player="0" />
-            <ScoreHead :game="0" :player="1" v-if="config.type === 1" />
-            <ScoreHead :game="0" :player="2" />
+            <ScoreHead :game="0" :player="2" v-if="config.type === 1" />
+            <ScoreHead :game="0" :player="1" />
             <ScoreHead :game="0" :player="3" v-if="config.type === 1" />
           </div>
           <div class="score__body">
             <ScoreBody :game="0" :player="0" />
-            <ScoreBody :game="0" :player="1" v-if="config.type === 1" />
-            <ScoreBody :game="0" :player="2" />
+            <ScoreBody :game="0" :player="2" v-if="config.type === 1" />
+            <ScoreBody :game="0" :player="1" />
             <ScoreBody :game="0" :player="3" v-if="config.type === 1" />
           </div>
         </div>
@@ -66,14 +66,14 @@
         <div class="score__child">
           <div class="score__head">
             <ScoreHead :game="1" :player="0" />
-            <ScoreHead :game="1" :player="1" v-if="config.type === 1" />
-            <ScoreHead :game="1" :player="2" />
+            <ScoreHead :game="1" :player="2" v-if="config.type === 1" />
+            <ScoreHead :game="1" :player="1" />
             <ScoreHead :game="1" :player="3" v-if="config.type === 1" />
           </div>
           <div class="score__body">
             <ScoreBody :game="1" :player="0" />
-            <ScoreBody :game="1" :player="1" v-if="config.type === 1" />
-            <ScoreBody :game="1" :player="2" />
+            <ScoreBody :game="1" :player="2" v-if="config.type === 1" />
+            <ScoreBody :game="1" :player="1" />
             <ScoreBody :game="1" :player="3" v-if="config.type === 1" />
           </div>
         </div>
@@ -86,14 +86,14 @@
         <div class="score__child">
           <div class="score__head">
             <ScoreHead :game="2" :player="0" />
-            <ScoreHead :game="2" :player="1" v-if="config.type === 1" />
-            <ScoreHead :game="2" :player="2" />
+            <ScoreHead :game="2" :player="2" v-if="config.type === 1" />
+            <ScoreHead :game="2" :player="1" />
             <ScoreHead :game="2" :player="3" v-if="config.type === 1" />
           </div>
           <div class="score__body">
             <ScoreBody :game="2" :player="0" />
-            <ScoreBody :game="2" :player="1" v-if="config.type === 1" />
-            <ScoreBody :game="2" :player="2" />
+            <ScoreBody :game="2" :player="2" v-if="config.type === 1" />
+            <ScoreBody :game="2" :player="1" />
             <ScoreBody :game="2" :player="3" v-if="config.type === 1" />
           </div>
         </div>
