@@ -66,6 +66,9 @@ const store = new Vuex.Store({
       state.scores[game][player][index]['num'] = point
       state.currentIndexs[game] = state.currentIndexs[game] + 1
     },
+    clearScore(state, { game, serve }) {
+      state.scores[game] = serve.map(v => score(v, serve))
+    },
     setServe(state, { game, serve }) {
       state.serves.splice(game, 1, serve)
     },
@@ -79,6 +82,9 @@ const store = new Vuex.Store({
       // 現在トータルのスコアに１点追加
       const point = state.totalScore[game][which] + 1
       commit('setScore', { game, player, index, point, which })
+    },
+    clearScore({ commit }, { game, serve }) {
+      commit('clearScore', { game, serve })
     },
     setServe({ commit }, { game, serve }) {
       commit('setServe', { game, serve })

@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 export default {
   name: 'Modal',
   data() {
@@ -49,6 +49,7 @@ export default {
     ...mapState(['players', 'serves']),
   },
   methods: {
+    ...mapActions(['setServe', 'clearScore']),
     initModal(game) {
       let count = 0
       const len = this.serves[game].length
@@ -108,13 +109,11 @@ export default {
           newServe[this.serveR + 2] = 1
         }
       }
-
-      this.$store
-        .dispatch('setServe', { game: this.game, serve: newServe })
-        .then(() => {
-          alert('サーブ権を変更しました')
-          this.close()
-        })
+      this.clearScore({ game: this.game, serve: newServe })
+      this.setServe({ game: this.game, serve: newServe }).then(() => {
+        alert('サーブ権を変更しました')
+        this.close()
+      })
     },
   },
 }
