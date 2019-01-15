@@ -69,7 +69,6 @@ const store = new Vuex.Store({
       state.currentIndexs[game] = state.currentIndexs[game] + 1
     },
     setServe(state, { game, serve }) {
-      console.log('AA')
       state.serves.splice(game, 1, serve)
     },
   },

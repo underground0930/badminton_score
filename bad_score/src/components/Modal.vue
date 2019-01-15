@@ -7,13 +7,13 @@
           <ul class="modal__lists">
             <li class="modal__list">
               <span>[S]サーブ</span>
-              <select name='serve' v-model="serveS">
+              <select name='serve' v-model.number="serveS">
                 <option v-for="(player,index) in players" :key="index" :value="index"><span v-if="player.team">{{player.team}}・</span>{{player.name}}</option>
               </select>
             </li>
             <li class="modal__list">
               <span>[R]レシーブ</span>
-              <select name='recieve' v-model="serveR">
+              <select name='recieve' v-model.number="serveR">
                 <option v-for="(player,index) in players" :key="index" :value="index"><span v-if="player.team">{{player.team}}・</span>{{player.name}}</option>
               </select>
             </li>
@@ -69,8 +69,8 @@ export default {
       }
       if (this.players.length === 4) {
         if (
-          this.serveS + this.serveS === 2 ||
-          this.serveS + this.serveS === 4
+          this.serveS + this.serveR === 2 ||
+          this.serveS + this.serveR === 4
         ) {
           alert('同チームでのサービス、レシーブは不正です')
           return false
@@ -79,8 +79,7 @@ export default {
       return true
     },
     updateServe() {
-      let newServe = new Array(this.players.length)
-      newServe = newServe.map((v, i) => {
+      let newServe = [...new Array(this.players.length)].map((v, i) => {
         if (this.serveS === i) {
           return 'S'
         } else if (this.serveR === i) {
@@ -89,6 +88,7 @@ export default {
         return ''
       })
       if (this.check()) {
+        console.log(newServe)
         this.$store.dispatch('setServe', { game: this.game, serve: newServe })
       }
     },
