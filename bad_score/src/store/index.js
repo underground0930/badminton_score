@@ -7,59 +7,42 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     config: null,
-    currentIndexs: [0, 0, 0],
-    currentOrders: [0, 0, 0],
+    currentIndexs: [1, 1, 1],
     totalScore: [[0, 0], [0, 0], [0, 0]],
     serves: null,
     scores: null,
     players: null,
   },
   getters: {
-    players: ({ players }) => {
-      return players
-    },
     player: ({ players }) => {
       return index => {
         return players[index]
       }
-    },
-    serves: ({ serves }) => {
-      return serves
     },
     totalScore: ({ totalScore }) => {
       return (i, j) => {
         return totalScore[i][j]
       }
     },
-    config: ({ config }) => {
-      return config
-    },
   },
   mutations: {
     init(state, payload) {
       let { config, players } = payload
+      let serve
+
       if (config.type === 0) {
         // シングルス
-        state.scores = [
-          [score(), score()],
-          [score(), score()],
-          [score(), score()],
-        ]
-        state.serves = [['S', 'R'], ['S', 'R'], ['S', 'R']]
+        serve = ['S', 'R']
       } else {
         // ダブルス
-        state.scores = [
-          [score(), score(), score(), score()],
-          [score(), score(), score(), score()],
-          [score(), score(), score(), score()],
-        ]
-        state.serves = [
-          ['S', 'R', '', ''],
-          ['S', 'R', '', ''],
-          ['S', 'R', '', ''],
-        ]
+        serve = ['S', 'R', '', '']
       }
-
+      state.serves = [serve, serve, serve]
+      state.scores = [
+        serve.map(v => score(v)),
+        serve.map(v => score(v)),
+        serve.map(v => score(v)),
+      ]
       state.players = players
       state.config = config
     },

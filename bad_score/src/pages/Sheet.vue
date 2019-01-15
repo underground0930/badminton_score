@@ -104,7 +104,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
 import ScoreHead from '../components/ScoreHead'
 import ScoreBody from '../components/ScoreBody'
 import Modal from '../components/Modal'
@@ -126,7 +126,8 @@ export default {
     /// /////
   },
   computed: {
-    ...mapGetters(['player', 'players', 'serves', 'totalScore', 'config']),
+    ...mapState(['players', 'serves', 'config']),
+    ...mapGetters(['player', 'totalScore']),
   },
   methods: {
     showModal(game) {

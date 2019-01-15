@@ -32,6 +32,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'Modal',
   data() {
@@ -41,15 +42,16 @@ export default {
     }
   },
   created() {
-    this.init(this.game)
+    this.modalInit(this.game)
   },
   props: ['game'],
+  computed: {
+    ...mapState(['players', 'serves']),
+  },
   methods: {
-    init(game) {
+    modalInit(game) {
       let count = 0
-      this.players = this.$store.getters.players
-      this.serve = this.$store.getters.serves[game]
-      this.serve.forEach(v => {
+      this.serves[game].forEach(v => {
         if (v === 'S') {
           this.serveS = count
         } else if (v === 'R') {
@@ -147,5 +149,11 @@ export default {
     display: inline-block;
     padding: 0 5px;
   }
+}
+select {
+  font-size: 16px;
+}
+option {
+  font-size: 16px;
 }
 </style>

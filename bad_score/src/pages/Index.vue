@@ -95,7 +95,6 @@
       <router-link to="/sheet" tag="button">スコアをつける</router-link>
     </div>
   </main>
-
 </template>
 
 <script>
@@ -116,7 +115,6 @@ export default {
   created() {
     this.updatePlayers()
   },
-
   methods: {
     validateName() {
       return this.players.every(v => {
