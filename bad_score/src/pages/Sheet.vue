@@ -7,10 +7,10 @@
     <header class="header">
       <div class="header__names">
         <div class="header__name">
-          <span v-if="player(0).team">{{player(0).team}}・</span>{{player(0).name}}
+          <span v-if="getPlayer(0).team">{{getPlayer(0).team}}・</span>{{getPlayer(0).name}}
         </div>
         <div class="header__name" v-if="config.type === 1">
-          <span v-if="player(2).team">{{player(2).team}}・</span>{{player(2).name}}
+          <span v-if="getPlayer(2).team">{{getPlayer(2).team}}・</span>{{getPlayer(2).name}}
         </div>
       </div>
       <div class="header__winGames">1</div>
@@ -28,10 +28,10 @@
       <div class="header__winGames">2</div>
       <div class="header__names">
         <div class="header__name">
-          <span v-if="player(1).team">{{player(1).team}}・</span>{{player(1).name}}
+          <span v-if="getPlayer(1).team">{{getPlayer(1).team}}・</span>{{getPlayer(1).name}}
         </div>
         <div class="header__name" v-if="config.type === 1">
-          <span v-if="player(3).team">{{player(3).team}}・</span>{{player(3).name}}
+          <span v-if="getPlayer(3).team">{{getPlayer(3).team}}・</span>{{getPlayer(3).name}}
         </div>
       </div>
     </header>
@@ -127,7 +127,7 @@ export default {
   },
   computed: {
     ...mapState(['players', 'serves', 'config']),
-    ...mapGetters(['player', 'totalScore']),
+    ...mapGetters(['getPlayer', 'totalScore']),
   },
   methods: {
     showModal(game) {

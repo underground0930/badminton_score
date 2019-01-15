@@ -80,6 +80,9 @@ export default {
       return true
     },
     updateServe() {
+      if (!this.check()) return
+      if (!confirm('点数が0にリセットされますがよろしいですか？')) return
+
       let newServe = [...new Array(this.players.length)].map((v, i) => {
         if (this.serveS === i) {
           return 'S'
@@ -88,14 +91,12 @@ export default {
         }
         return ''
       })
-      if (this.check()) {
-        this.$store
-          .dispatch('setServe', { game: this.game, serve: newServe })
-          .then(() => {
-            alert('サーブ権を変更しました')
-            this.close()
-          })
-      }
+      this.$store
+        .dispatch('setServe', { game: this.game, serve: newServe })
+        .then(() => {
+          alert('サーブ権を変更しました')
+          this.close()
+        })
     },
   },
 }

@@ -14,7 +14,7 @@ const store = new Vuex.Store({
     players: null,
   },
   getters: {
-    player: ({ players }) => {
+    getPlayer: ({ players }) => {
       return index => {
         return players[index]
       }
@@ -22,6 +22,23 @@ const store = new Vuex.Store({
     totalScore: ({ totalScore }) => {
       return (i, j) => {
         return totalScore[i][j]
+      }
+    },
+    getServe({ serves }) {
+      return (game, player) => {
+        const servesNum = serves[game][player]
+        const length = serves[game].length
+        if (length === 2 && servesNum === 0) {
+          return 'S'
+        } else if (length === 2 && servesNum === 1) {
+          return 'R'
+        }
+        if (servesNum === 0) {
+          return 'S'
+        } else if (servesNum === 3) {
+          return 'R'
+        }
+        return ''
       }
     },
   },
@@ -32,16 +49,16 @@ const store = new Vuex.Store({
 
       if (config.type === 0) {
         // シングルス
-        serve = ['S', 'R']
+        serve = [0, 1]
       } else {
         // ダブルス
-        serve = ['S', 'R', '', '']
+        serve = [0, 3, 2, 1]
       }
       state.serves = [serve, serve, serve]
       state.scores = [
-        serve.map(v => score(v)),
-        serve.map(v => score(v)),
-        serve.map(v => score(v)),
+        serve.map(v => score(v, serve)),
+        serve.map(v => score(v, serve)),
+        serve.map(v => score(v, serve)),
       ]
       state.players = players
       state.config = config

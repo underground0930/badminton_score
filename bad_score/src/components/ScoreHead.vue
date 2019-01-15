@@ -1,17 +1,21 @@
 <template>
   <table>
     <tr>
-      <th class="name">{{this.$store.state.players[player].name}}</th>
-      <td class="serve">{{this.$store.state.serves[game][player]}}</td>
+      <th class="name">{{getPlayer(player)['name']}}</th>
+      <td class="serve">{{getServe(game,player)}}</td>
     </tr>
   </table>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'ScoreHead',
   data() {
     return {}
+  },
+  computed: {
+    ...mapGetters(['getServe', 'getPlayer']),
   },
   props: ['player', 'game'],
 }
