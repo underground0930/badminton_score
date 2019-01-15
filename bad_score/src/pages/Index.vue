@@ -10,7 +10,7 @@
                 type='radio'
                 value="0"
                 v-model.number="config.type"
-                @change="makePlayers"
+                @change="updatePlayers"
               > シングルス
             </label>
           </dd>
@@ -20,7 +20,7 @@
                 type='radio'
                 value="1"
                 v-model.number="config.type"
-                @change="makePlayers"
+                @change="updatePlayers"
               > ダブルス
             </label>
           </dd>
@@ -114,8 +114,9 @@ export default {
     }
   },
   created() {
-    this.makePlayers()
+    this.updatePlayers()
   },
+
   methods: {
     validateName() {
       return this.players.every(v => {
@@ -127,7 +128,7 @@ export default {
         return { team: '', name: '' }
       })
     },
-    makePlayers() {
+    updatePlayers() {
       if (this.config.type === 0) {
         this.players = this.makePlayer(2)
       } else {

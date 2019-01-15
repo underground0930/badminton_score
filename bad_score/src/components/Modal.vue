@@ -8,19 +8,19 @@
             <li class="modal__list">
               <span>[S]サーブ</span>
               <select name='serve' v-model="serveS">
-                <option v-for="(player,index) in players" :key="index" :value="index">{{player.team}}・{{player.name}}</option>
+                <option v-for="(player,index) in players" :key="index" :value="index"><span v-if="player.team">{{player.team}}・</span>{{player.name}}</option>
               </select>
             </li>
             <li class="modal__list">
               <span>[R]レシーブ</span>
               <select name='recieve' v-model="serveR">
-                <option v-for="(player,index) in players" :key="index" :value="index">{{player.team}}・{{player.name}}</option>
+                <option v-for="(player,index) in players" :key="index" :value="index"><span v-if="player.team">{{player.team}}・</span>{{player.name}}</option>
               </select>
             </li>
           </ul>
           <div class="modal__btns">
             <div class="modal__btn">
-              <button>変更する</button>
+              <button @click="updateServe">変更する</button>
             </div>
             <div class="modal__btn">
               <button @click="close">閉じる</button>
@@ -41,27 +41,57 @@ export default {
     }
   },
   created() {
-    let count = 0
     this.init(this.game)
-    this.serve.forEach(v => {
-      if (v === 'S') {
-        this.serveS = count
-      } else if (v === 'R') {
-        this.serveR = count
-      }
-      count++
-    })
   },
   props: ['game'],
   methods: {
     init(game) {
+      let count = 0
       this.players = this.$store.getters.players
       this.serve = this.$store.getters.serves[game]
+      this.serve.forEach(v => {
+        if (v === 'S') {
+          this.serveS = count
+        } else if (v === 'R') {
+          this.serveR = count
+        }
+        count++
+      })
     },
     close() {
       this.$emit('close')
     },
-    check() {},
+    check() {
+      console.log('check')
+      if (this.serveS === this.serveR) {
+        alert('サーバーとレシーバーが同一人物です')
+        return false
+      }
+      if (this.players.length === 4) {
+        if (
+          this.serveS + this.serveS === 2 ||
+          this.serveS + this.serveS === 4
+        ) {
+          alert('同チームでのサービス、レシーブは不正です')
+          return false
+        }
+      }
+      return true
+    },
+    updateServe() {
+      let newServe = new Array(this.players.length)
+      newServe = newServe.map((v, i) => {
+        if (this.serveS === i) {
+          return 'S'
+        } else if (this.serveR === i) {
+          return 'R'
+        }
+        return ''
+      })
+      if (this.check()) {
+        this.$store.dispatch('setServe', { game: this.game, serve: newServe })
+      }
+    },
   },
 }
 </script>

@@ -54,9 +54,9 @@ const store = new Vuex.Store({
           [score(), score(), score(), score()],
         ]
         state.serves = [
-          ['S', '', 'R', ''],
-          ['S', '', 'R', ''],
-          ['S', '', 'R', ''],
+          ['S', 'R', '', ''],
+          ['S', 'R', '', ''],
+          ['S', 'R', '', ''],
         ]
       }
 
@@ -68,6 +68,10 @@ const store = new Vuex.Store({
       state.scores[game][player][index]['num'] = point
       state.currentIndexs[game] = state.currentIndexs[game] + 1
     },
+    setServe(state, { game, serve }) {
+      console.log('AA')
+      state.serves.splice(game, 1, serve)
+    },
   },
   actions: {
     setScore({ state, commit }, { game, player, index }) {
@@ -78,6 +82,9 @@ const store = new Vuex.Store({
       // 現在トータルのスコアに１点追加
       const point = state.totalScore[game][which] + 1
       commit('setScore', { game, player, index, point, which })
+    },
+    setServe({ commit }, { game, serve }) {
+      commit('setServe', { game, serve })
     },
   },
 })
