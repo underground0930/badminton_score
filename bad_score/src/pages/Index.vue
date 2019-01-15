@@ -10,6 +10,7 @@
                 type='radio'
                 value="0"
                 v-model.number="config.type"
+                @change="makePlayers"
               > シングルス
             </label>
           </dd>
@@ -19,6 +20,7 @@
                 type='radio'
                 value="1"
                 v-model.number="config.type"
+                @change="makePlayers"
               > ダブルス
             </label>
           </dd>
@@ -108,34 +110,38 @@ export default {
         setting: 1,
         point: 21,
       },
-      players: [
-        {
-          name: '',
-          team: '',
-        },
-        {
-          name: '',
-          team: '',
-        },
-        {
-          name: '',
-          team: '',
-        },
-        {
-          name: '',
-          team: '',
-        },
-      ],
+      players: [],
     }
   },
+  created() {
+    this.makePlayers()
+  },
   methods: {
+    validateName() {
+      return this.players.every(v => {
+        return v.name.trim() !== ''
+      })
+    },
+    makePlayer(num) {
+      return [...Array(num)].map(v => {
+        return { team: '', name: '' }
+      })
+    },
+    makePlayers() {
+      if (this.config.type === 0) {
+        this.players = this.makePlayer(2)
+      } else {
+        this.players = this.makePlayer(4)
+      }
+    },
     ...mapMutations(['init']),
   },
   beforeRouteLeave(to, from, next) {
+    if (!this.validateName()) {
+      alert('名前は必須項目です')
+      return
+    }
     if (confirm('上記の設定でスコアシートを作成しますか？')) {
-      if (this.config.type === 0) {
-        this.players.splice(2)
-      }
       this.init({ config: this.config, players: this.players })
       next()
     } else {
