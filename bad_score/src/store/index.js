@@ -16,9 +16,15 @@ const store = new Vuex.Store({
   },
   getters: {
     players: ({ players }) => {
+      return players
+    },
+    player: ({ players }) => {
       return index => {
         return players[index]
       }
+    },
+    serves: ({ serves }) => {
+      return serves
     },
     totalScore: ({ totalScore }) => {
       return (i, j) => {
@@ -35,11 +41,10 @@ const store = new Vuex.Store({
       if (config.type === 0) {
         // シングルス
         state.scores = [
-          [score(), score()],
-          [score(), score()],
-          [score(), score()],
+          [score(), 'null', score(), 'null'],
+          [score(), 'null', score(), 'null'],
+          [score(), 'null', score(), 'null'],
         ]
-        state.serves = [['S', 'R'], ['S', 'R'], ['S', 'R']]
       } else {
         // ダブルス
         state.scores = [
@@ -47,24 +52,14 @@ const store = new Vuex.Store({
           [score(), score(), score(), score()],
           [score(), score(), score(), score()],
         ]
-        state.serves = [
-          ['S', 'R', '', ''],
-          ['S', 'R', '', ''],
-          ['S', 'R', '', ''],
-        ]
       }
+      state.serves = [
+        ['S', '', 'R', ''],
+        ['S', '', 'R', ''],
+        ['S', '', 'R', ''],
+      ]
       state.players = players
       state.config = config
-    },
-    setOrder(state, payload) {
-      // 最初に点数の入る順番を決める、
-    },
-    changeCurrentOrders(state, payload) {
-      // 現在の得点者を切り替える
-      return state.changeCurrentOrders
-    },
-    setTotalScore(state, payload) {
-      // 点数を加算する
     },
     setScore(state, { game, player, index, point, which }) {
       state.totalScore[game].splice(which, 1, point)
@@ -77,7 +72,7 @@ const store = new Vuex.Store({
       // 現在のインデックス以外をクリックしても無視
       if (state.currentIndexs[game] !== index) return
       // どちらに点数を入れるかを決める
-      const which = player % 2 === 0 ? 0 : 1
+      const which = player < 2 ? 0 : 1
       // 現在トータルのスコアに１点追加
       const point = state.totalScore[game][which] + 1
       commit('setScore', { game, player, index, point, which })

@@ -1,16 +1,16 @@
 <template>
   <main>
     <!-- modal -->
-    <Modal />
+    <Modal v-if="modal" :players="players" :serves="serves" :game="game" @close="hideModal"  />
     <!--/ modal -->
     <!-- header -->
     <header class="header">
       <div class="header__names">
         <div class="header__name">
-          <span v-if="players(0).team">{{players(0).team}}・</span>{{players(0).name}}
+          <span v-if="player(0).team">{{player(0).team}}・</span>{{player(0).name}}
         </div>
         <div class="header__name" v-if="config.type === 1">
-          <span v-if="players(2).team">{{players(2).team}}・</span>{{players(2).name}}
+          <span v-if="player(1).team">{{player(1).team}}・</span>{{player(1).name}}
         </div>
       </div>
       <div class="header__winGames">1</div>
@@ -28,10 +28,10 @@
       <div class="header__winGames">2</div>
       <div class="header__names">
         <div class="header__name">
-          <span v-if="players(1).team">{{players(1).team}}・</span>{{players(1).name}}
+          <span v-if="player(2).team">{{player(2).team}}・</span>{{player(2).name}}
         </div>
         <div class="header__name" v-if="config.type === 1">
-          <span v-if="players(3).team">{{players(3).team}}・</span>{{players(3).name}}
+          <span v-if="player(3).team">{{player(3).team}}・</span>{{player(3).name}}
         </div>
       </div>
     </header>
@@ -39,52 +39,61 @@
     <!-- score -->
     <div class="score">
       <section class="score__section">
-        <h2 class="score__title">■1ゲーム目</h2>
+        <header class="score__header">
+          <h2 class="score__title">■1ゲーム目</h2>
+          <button @click="showModal(0)">サーブ権を設定する</button>
+        </header>
         <div class="score__child">
           <div class="score__head">
             <ScoreHead :game="0" :player="0" />
-            <ScoreHead :game="0" :player="2" v-if="config.type === 1" />
-            <ScoreHead :game="0" :player="1" />
+            <ScoreHead :game="0" :player="1" v-if="config.type === 1" />
+            <ScoreHead :game="0" :player="2" />
             <ScoreHead :game="0" :player="3" v-if="config.type === 1" />
           </div>
           <div class="score__body">
             <ScoreBody :game="0" :player="0" />
-            <ScoreBody :game="0" :player="2" v-if="config.type === 1" />
-            <ScoreBody :game="0" :player="1" />
+            <ScoreBody :game="0" :player="1" v-if="config.type === 1" />
+            <ScoreBody :game="0" :player="2" />
             <ScoreBody :game="0" :player="3" v-if="config.type === 1" />
           </div>
         </div>
       </section>
       <section class="score__section">
-        <h2 class="score__title">■2ゲーム目</h2>
+        <header class="score__header">
+          <h2 class="score__title">■2ゲーム目</h2>
+          <button @click="showModal(1)">サーブ権を設定する</button>
+        </header>
         <div class="score__child">
           <div class="score__head">
             <ScoreHead :game="1" :player="0" />
-            <ScoreHead :game="1" :player="2" v-if="config.type === 1" />
-            <ScoreHead :game="1" :player="1" />
+            <ScoreHead :game="1" :player="1" v-if="config.type === 1" />
+            <ScoreHead :game="1" :player="2" />
             <ScoreHead :game="1" :player="3" v-if="config.type === 1" />
           </div>
           <div class="score__body">
             <ScoreBody :game="1" :player="0" />
-            <ScoreBody :game="1" :player="2" v-if="config.type === 1" />
-            <ScoreBody :game="1" :player="1" />
+            <ScoreBody :game="1" :player="1" v-if="config.type === 1" />
+            <ScoreBody :game="1" :player="2" />
             <ScoreBody :game="1" :player="3" v-if="config.type === 1" />
           </div>
         </div>
       </section>
       <section class="score__section">
-        <h2 class="score__title">■3ゲーム目</h2>
+        <header class="score__header">
+          <h2 class="score__title">■3ゲーム目</h2>
+          <button @click="showModal(2)">サーブ権を設定する</button>
+        </header>
         <div class="score__child">
           <div class="score__head">
             <ScoreHead :game="2" :player="0" />
-            <ScoreHead :game="2" :player="2" v-if="config.type === 1" />
-            <ScoreHead :game="2" :player="1" />
+            <ScoreHead :game="2" :player="1" v-if="config.type === 1" />
+            <ScoreHead :game="2" :player="2" />
             <ScoreHead :game="2" :player="3" v-if="config.type === 1" />
           </div>
           <div class="score__body">
             <ScoreBody :game="2" :player="0" />
-            <ScoreBody :game="2" :player="2" v-if="config.type === 1" />
-            <ScoreBody :game="2" :player="1" />
+            <ScoreBody :game="2" :player="1" v-if="config.type === 1" />
+            <ScoreBody :game="2" :player="2" />
             <ScoreBody :game="2" :player="3" v-if="config.type === 1" />
           </div>
         </div>
@@ -108,12 +117,23 @@ export default {
     Modal,
   },
   data() {
-    return {}
+    return {
+      modal: false,
+      game: 0,
+    }
   },
   computed: {
-    ...mapGetters(['players', 'totalScore', 'config']),
+    ...mapGetters(['player', 'players', 'serves', 'totalScore', 'config']),
   },
-  methods: {},
+  methods: {
+    showModal(game) {
+      this.game = game
+      this.modal = true
+    },
+    hideModal(game) {
+      this.modal = false
+    },
+  },
   beforeRouteEnter(to, from, next) {
     if (from.name === 'index') {
       next()
@@ -156,8 +176,13 @@ export default {
 .score__section {
   margin: 0 0 20px;
 }
-.score__title {
+.score__header {
+  display: flex;
+  align-items: flex-start;
   margin: 0 0 10px;
+}
+.score__title {
+  margin: 0 10px 0 0;
 }
 .score__child {
   position: relative;

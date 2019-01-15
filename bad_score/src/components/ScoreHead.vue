@@ -2,7 +2,7 @@
   <table>
     <tr>
       <th class="name">{{this.$store.state.players[player].name}}</th>
-      <td class="serve">{{this.$store.state.serves[game][player]}}</td>
+      <td class="serve" @click="">{{this.$store.state.serves[game][player]}}</td>
     </tr>
   </table>
 </template>

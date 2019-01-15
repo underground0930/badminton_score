@@ -3,38 +3,18 @@
       <div class="modal">
         <div class="modal__bg"></div>
         <div class='modal__inner'>
-          <h2 class="modal__title">サーブ権</h2>
-          <ul>
-            <li>
-              Aさん
-              <select name=''>
-                <option value=''></option>
-                <option value='S' selected>S</option>
-                <option value='R'>R</option>
+          <h2 class="modal__title">サーブ権 {{game + 1}}ゲーム目</h2>
+          <ul class="modal__lists">
+            <li class="modal__list">
+              <span>[S]サーブ</span>
+              <select name='serve'>
+                <option v-for="(player,index) in players" :key="index" :value="index">{{player.team}}・{{player.name}}</option>
               </select>
             </li>
-            <li>
-              Bさん
-              <select name=''>
-                <option value=''></option>
-                <option value='S'>S</option>
-                <option value='R'>R</option>
-              </select>
-            </li>
-            <li>
-              Cさん
-              <select name=''>
-                <option value=''></option>
-                <option value='S'>S</option>
-                <option value='R' selected>R</option>
-              </select>
-            </li>
-            <li>
-              Dさん
-              <select name=''>
-                <option value=''></option>
-                <option value='S'>S</option>
-                <option value='R'>R</option>
+            <li class="modal__list">
+              <span>[R]レシーブ</span>
+              <select name='recieve'>
+                <option v-for="(player,index) in players" :key="index" :value="index">{{player.team}}・{{player.name}}</option>
               </select>
             </li>
           </ul>
@@ -43,7 +23,7 @@
               <button>変更する</button>
             </div>
             <div class="modal__btn">
-              <button>閉じる</button>
+              <button @click="close">閉じる</button>
             </div>
           </div>
         </div>
@@ -57,7 +37,12 @@ export default {
   data() {
     return {}
   },
-  props: [],
+  props: ['players', 'serves', 'game'],
+  methods: {
+    close() {
+      this.$emit('close')
+    },
+  },
 }
 </script>
 
@@ -91,9 +76,23 @@ export default {
   text-align: center;
   font-weight: bold;
   padding: 15px 0 15px;
+  margin: 0 0 15px;
+  border-bottom: 1px dotted #000;
 }
 .modal__btns {
   display: flex;
   justify-content: center;
+}
+.modal__btn {
+  margin: 0 5px 0;
+}
+.modal__list {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 10px;
+  span {
+    display: inline-block;
+    padding: 0 5px;
+  }
 }
 </style>

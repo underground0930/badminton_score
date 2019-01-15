@@ -34,15 +34,15 @@
                 <input type='text' v-model="players[0].name" placeholder="名前1">
               </li>
               <li v-if="config.type === 1">
-                <input type='text' v-model="players[2].team" placeholder="チーム名"><br>
-                <input type='text' v-model="players[2].name" placeholder="名前3">
+                <input type='text' v-model="players[1].team" placeholder="チーム名"><br>
+                <input type='text' v-model="players[1].name" placeholder="名前2">
               </li>
             </ul>
             <p>vs</p>
             <ul>
               <li>
-                <input type='text' v-model="players[1].team" placeholder="チーム名"><br>
-                <input type='text' v-model="players[1].name" placeholder="名前2">
+                <input type='text' v-model="players[2].team" placeholder="チーム名"><br>
+                <input type='text' v-model="players[2].name" placeholder="名前3">
               </li>
               <li v-if="config.type === 1">
                 <input type='text' v-model="players[3].team" placeholder="チーム名"><br>
@@ -110,20 +110,20 @@ export default {
       },
       players: [
         {
-          name: '',
-          team: '',
+          name: 'Aさん',
+          team: 'teamあ',
         },
         {
-          name: '',
-          team: '',
+          name: 'Bさん',
+          team: 'teamあ',
         },
         {
-          name: '',
-          team: '',
+          name: 'Xさん',
+          team: 'team＠',
         },
         {
-          name: '',
-          team: '',
+          name: 'Yさん',
+          team: 'team@',
         },
       ],
     }
