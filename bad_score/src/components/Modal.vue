@@ -23,7 +23,7 @@
               <button @click="updateServe">変更する</button>
             </div>
             <div class="modal__btn">
-              <button @click="close">閉じる</button>
+              <button @click="closeModal">閉じる</button>
             </div>
           </div>
         </div>
@@ -42,28 +42,29 @@ export default {
     }
   },
   created() {
-    this.modalInit(this.game)
+    this.initModal(this.game)
   },
   props: ['game'],
   computed: {
     ...mapState(['players', 'serves']),
   },
   methods: {
-    modalInit(game) {
+    initModal(game) {
       let count = 0
+      const len = this.serves[game].length
       this.serves[game].forEach(v => {
-        if (v === 'S') {
+        if (v === 0) {
           this.serveS = count
-        } else if (v === 'R') {
+        } else if ((len === 2 && v === 1) || v === 3) {
           this.serveR = count
         }
         count++
       })
     },
-    close() {
+    closeModal() {
       this.$emit('close')
     },
-    check() {
+    checkSubmit() {
       if (this.serveS === this.serveR) {
         alert('サーバーとレシーバーが同一人物です')
         return false
@@ -80,17 +81,34 @@ export default {
       return true
     },
     updateServe() {
-      if (!this.check()) return
+      if (!this.checkSubmit()) return
       if (!confirm('点数が0にリセットされますがよろしいですか？')) return
 
-      let newServe = [...new Array(this.players.length)].map((v, i) => {
-        if (this.serveS === i) {
-          return 'S'
-        } else if (this.serveR === i) {
-          return 'R'
+      let newServe = []
+      if (this.players.length === 2) {
+        if (this.serveS === 0) {
+          newServe = [0, 1]
+        } else {
+          newServe = [1, 0]
         }
-        return ''
-      })
+      } else {
+        newServe[this.serveS] = 0
+        newServe[this.serveR] = 3
+        if (this.serveS > 1 && this.serveR > 1) {
+          newServe[this.serveS - 2] = 2
+          newServe[this.serveR - 2] = 1
+        } else if (this.serveS <= 1 && this.serveR <= 1) {
+          newServe[this.serveS + 2] = 2
+          newServe[this.serveR + 2] = 1
+        } else if (this.serveS <= 1 && this.serveR > 1) {
+          newServe[this.serveS + 2] = 2
+          newServe[this.serveR - 2] = 1
+        } else if (this.serveS > 1 && this.serveR <= 1) {
+          newServe[this.serveS - 2] = 2
+          newServe[this.serveR + 2] = 1
+        }
+      }
+
       this.$store
         .dispatch('setServe', { game: this.game, serve: newServe })
         .then(() => {

@@ -48,10 +48,8 @@ const store = new Vuex.Store({
       let serve
 
       if (config.type === 0) {
-        // シングルス
         serve = [0, 1]
       } else {
-        // ダブルス
         serve = [0, 3, 2, 1]
       }
       state.serves = [serve, serve, serve]

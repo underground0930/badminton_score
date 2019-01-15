@@ -1,7 +1,7 @@
 <template>
   <main>
     <!-- modal -->
-    <Modal v-if="modal" :game="game" @close="hideModal"  />
+    <Modal v-if="modal" :game="game" @close="hideModal" />
     <!--/ modal -->
     <!-- header -->
     <header class="header">
