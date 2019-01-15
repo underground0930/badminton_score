@@ -62,7 +62,6 @@ export default {
       this.$emit('close')
     },
     check() {
-      console.log('check')
       if (this.serveS === this.serveR) {
         alert('サーバーとレシーバーが同一人物です')
         return false
@@ -88,8 +87,12 @@ export default {
         return ''
       })
       if (this.check()) {
-        console.log(newServe)
-        this.$store.dispatch('setServe', { game: this.game, serve: newServe })
+        this.$store
+          .dispatch('setServe', { game: this.game, serve: newServe })
+          .then(() => {
+            alert('サーブ権を変更しました')
+            this.close()
+          })
       }
     },
   },
