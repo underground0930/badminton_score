@@ -72,8 +72,8 @@ export default {
       }
       if (this.players.length === 4) {
         if (
-          this.serveS + this.serveR === 2 ||
-          this.serveS + this.serveR === 4
+          this.serveS + this.serveR === 1 ||
+          this.serveS + this.serveR === 5
         ) {
           alert('同チームでのサービス、レシーブは不正です')
           return false
@@ -93,25 +93,26 @@ export default {
           newServe = [1, 0]
         }
       } else {
-        newServe[this.serveS] = 0
-        newServe[this.serveR] = 3
-        if (this.serveS > 1 && this.serveR > 1) {
-          newServe[this.serveS - 2] = 2
-          newServe[this.serveR - 2] = 1
-        } else if (this.serveS <= 1 && this.serveR <= 1) {
-          newServe[this.serveS + 2] = 2
-          newServe[this.serveR + 2] = 1
-        } else if (this.serveS <= 1 && this.serveR > 1) {
-          newServe[this.serveS + 2] = 2
-          newServe[this.serveR - 2] = 1
-        } else if (this.serveS > 1 && this.serveR <= 1) {
-          newServe[this.serveS - 2] = 2
-          newServe[this.serveR + 2] = 1
+        if (this.serveS === 0 && this.serveR === 2) {
+          newServe = [0, 2, 3, 1]
+        } else if (this.serveS === 0 && this.serveR === 3) {
+          newServe = [0, 2, 1, 3]
+        } else if (this.serveS === 1 && this.serveR === 2) {
+          newServe = [2, 0, 3, 1]
+        } else if (this.serveS === 1 && this.serveR === 3) {
+          newServe = [2, 0, 1, 3]
+        } else if (this.serveS === 2 && this.serveR === 0) {
+          newServe = [3, 1, 0, 2]
+        } else if (this.serveS === 2 && this.serveR === 1) {
+          newServe = [1, 3, 0, 2]
+        } else if (this.serveS === 3 && this.serveR === 0) {
+          newServe = [3, 1, 2, 0]
+        } else if (this.serveS === 3 && this.serveR === 1) {
+          newServe = [1, 3, 2, 0]
         }
       }
       this.clearScore({ game: this.game, serve: newServe })
       this.setServe({ game: this.game, serve: newServe }).then(() => {
-        alert('サーブ権を変更しました')
         this.closeModal()
       })
     },
@@ -165,7 +166,8 @@ export default {
   margin: 0 0 10px;
   span {
     display: inline-block;
-    padding: 0 5px;
+    padding: 0 10px;
+    font-weight: bold;
   }
 }
 select {

@@ -7,6 +7,7 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
   state: {
     config: null,
+    currentOrder: [0, 0, 0],
     currentIndexs: [1, 1, 1],
     totalScore: [[0, 0], [0, 0], [0, 0]],
     serves: null,
@@ -28,11 +29,13 @@ const store = new Vuex.Store({
       return (game, player) => {
         const servesNum = serves[game][player]
         const length = serves[game].length
-        if (length === 2 && servesNum === 0) {
-          return 'S'
-        } else if (length === 2 && servesNum === 1) {
+        if (length === 2) {
+          if (servesNum === 0) {
+            return 'S'
+          }
           return 'R'
         }
+
         if (servesNum === 0) {
           return 'S'
         } else if (servesNum === 3) {
@@ -50,7 +53,7 @@ const store = new Vuex.Store({
       if (config.type === 0) {
         serve = [0, 1]
       } else {
-        serve = [0, 3, 2, 1]
+        serve = [0, 2, 3, 1]
       }
       state.serves = [serve, serve, serve]
       state.scores = [
@@ -75,11 +78,10 @@ const store = new Vuex.Store({
   },
   actions: {
     setScore({ state, commit }, { game, player, index }) {
-      // 現在のインデックス以外をクリックしても無視
-      if (state.currentIndexs[game] !== index) return
-      // どちらに点数を入れるかを決める
-      const which = player % 2 === 0 ? 0 : 1
-      // 現在トータルのスコアに１点追加
+      const [type, currentIndexs] = [state.type, state.currentIndexs]
+      if (currentIndexs[game] !== index) return
+      const which =
+        (type === 1 && player < 2) || (type === 0 && player === 0) ? 0 : 1
       const point = state.totalScore[game][which] + 1
       commit('setScore', { game, player, index, point, which })
     },

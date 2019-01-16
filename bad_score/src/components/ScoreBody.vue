@@ -1,7 +1,7 @@
 <template>
   <table>
     <tr>
-      <td class="cell" v-for="(cell,index) in this.$store.state.scores[game][player]" :key="index" @click="setScore({ game, player, index })">
+      <td class="cell" v-for="(cell,index) in scores[game][player]" :key="index" @click="setScore({ game, player, index })">
         {{cell.num}}
       </td>
     </tr>
@@ -9,13 +9,16 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 export default {
   name: 'ScoreBody',
   data() {
     return {}
   },
   props: ['game', 'player'],
+  computed: {
+    ...mapState(['scores']),
+  },
   methods: {
     ...mapActions(['setScore']),
   },

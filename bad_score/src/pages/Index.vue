@@ -33,22 +33,22 @@
             <ul>
               <li>
                 <input type='text' v-model="players[0].team" placeholder="チーム名"><br>
-                <input type='text' v-model="players[0].name" placeholder="名前1">
+                <input type='text' v-model="players[0].name" placeholder="名前">
               </li>
               <li v-if="config.type === 1">
-                <input type='text' v-model="players[2].team" placeholder="チーム名"><br>
-                <input type='text' v-model="players[2].name" placeholder="名前2">
+                <input type='text' v-model="players[1].team" placeholder="チーム名"><br>
+                <input type='text' v-model="players[1].name" placeholder="名前">
               </li>
             </ul>
             <p>vs</p>
             <ul>
               <li>
-                <input type='text' v-model="players[1].team" placeholder="チーム名"><br>
-                <input type='text' v-model="players[1].name" placeholder="名前3">
+                <input type='text' v-model="players[config.type === 1 ? 2 : 1].team" placeholder="チーム名"><br>
+                <input type='text' v-model="players[config.type === 1 ? 2 : 1].name" placeholder="名前">
               </li>
               <li v-if="config.type === 1">
                 <input type='text' v-model="players[3].team" placeholder="チーム名"><br>
-                <input type='text' v-model="players[3].name" placeholder="名前4">
+                <input type='text' v-model="players[3].name" placeholder="名前">
               </li>
             </ul>
           </dd>
@@ -137,7 +137,7 @@ export default {
   },
   beforeRouteLeave(to, from, next) {
     if (!this.validateName()) {
-      alert('名前は必須項目です')
+      alert('メンバーの名前が空欄の箇所があります。')
       return
     }
     if (confirm('上記の設定でスコアシートを作成しますか？')) {
@@ -170,7 +170,7 @@ export default {
   p {
     padding: 0 10px 0;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 20px;
   }
 }
 input[type='text'],
