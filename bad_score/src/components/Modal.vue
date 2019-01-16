@@ -49,7 +49,13 @@ export default {
     ...mapState(['players', 'serves']),
   },
   methods: {
-    ...mapActions(['setServe', 'initScore']),
+    ...mapActions([
+      'setServe',
+      'initScore',
+      'updateCurrentOrders',
+      'initCurrentIndexs',
+      'initTotalScore',
+    ]),
     initModal(game) {
       let count = 0
       const len = this.serves[game].length
@@ -65,6 +71,7 @@ export default {
     closeModal() {
       this.$emit('close')
     },
+
     checkSubmit() {
       if (this.serveS === this.serveR) {
         alert('サーバーとレシーバーが同一人物です')
@@ -113,8 +120,13 @@ export default {
           newServe = [1, 3, 2, 0]
         }
       }
+
+      // 初期化処理
+      this.initTotalScore()
+      this.initCurrentIndexs()
       this.updateCurrentOrders({ game: this.game, add: false })
       this.initScore({ game: this.game, serve: newServe })
+      // サーブ権を新しく設定する
       this.setServe({ game: this.game, serve: newServe }).then(() => {
         this.closeModal()
       })

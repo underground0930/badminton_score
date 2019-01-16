@@ -80,8 +80,14 @@ const store = new Vuex.Store({
       state.scores[game][player][index]['num'] = point
       state.currentIndexs[game] = state.currentIndexs[game] + 1
     },
+    initTotalScore(state) {
+      state.totalScore = [[0, 0], [0, 0], [0, 0]]
+    },
     initScore(state, { game, serve }) {
       state.scores.splice(game, 1, serve.map(v => score(v, serve)))
+    },
+    initCurrentIndexs(state) {
+      state.currentIndexs = [1, 1, 1]
     },
     setServe(state, { game, serve }) {
       state.serves.splice(game, 1, serve)
@@ -131,11 +137,17 @@ const store = new Vuex.Store({
     updateCurrentOrders({ commit }, { game, add }) {
       commit('updateCurrentOrders', { game, add })
     },
+    initCurrentIndexs({ commit }) {
+      commit('initCurrentIndexs')
+    },
     initScore({ commit }, { game, serve }) {
       commit('initScore', { game, serve })
     },
     setServe({ commit }, { game, serve }) {
       commit('setServe', { game, serve })
+    },
+    initTotalScore({ commit }) {
+      commit('initTotalScore')
     },
   },
 })
