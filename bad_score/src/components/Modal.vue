@@ -112,7 +112,7 @@ export default {
       this.clearScore({ game: this.game, serve: newServe })
       this.setServe({ game: this.game, serve: newServe }).then(() => {
         alert('サーブ権を変更しました')
-        this.close()
+        this.closeModal()
       })
     },
   },

@@ -67,7 +67,7 @@ const store = new Vuex.Store({
       state.currentIndexs[game] = state.currentIndexs[game] + 1
     },
     clearScore(state, { game, serve }) {
-      state.scores[game] = serve.map(v => score(v, serve))
+      state.scores.splice(game, 1, serve.map(v => score(v, serve)))
     },
     setServe(state, { game, serve }) {
       state.serves.splice(game, 1, serve)
