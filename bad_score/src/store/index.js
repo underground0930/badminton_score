@@ -95,7 +95,7 @@ const store = new Vuex.Store({
     },
   },
   actions: {
-    setScore({ state, commit, getters }, { game, player, index }) {
+    setScore({ state, commit, getters, dispatch }, { game, player, index }) {
       const [type, currentIndexs] = [state.type, state.currentIndexs]
       let whichPoint
       let orderObj = getters.newServeObj(game)
@@ -106,13 +106,16 @@ const store = new Vuex.Store({
 
       // 点数は順番に入っていく
       if (orderObj[currentOrder] === player) {
+        // 同じ人が連続で得点
       } else if (orderObj[currentOrder + 1] === player) {
-        commit('updateCurrentOrders', { game, add: true })
+        // サービスオーバーで得点
+        dispatch('updateCurrentOrders', { game, add: true })
       } else if (
         currentOrder + 1 === getters.length &&
         orderObj[0] === player
       ) {
-        commit('updateCurrentOrders', { game, add: false })
+        // サービスオーバーで得点 0からスタート
+        dispatch('updateCurrentOrders', { game, add: false })
       } else {
         return
       }
@@ -124,6 +127,9 @@ const store = new Vuex.Store({
       }
       const point = state.totalScore[game][whichPoint] + 1
       commit('setScore', { game, player, index, point, whichPoint })
+    },
+    updateCurrentOrders({ commit }, { game, add }) {
+      commit('updateCurrentOrders', { game, add })
     },
     initScore({ commit }, { game, serve }) {
       commit('initScore', { game, serve })

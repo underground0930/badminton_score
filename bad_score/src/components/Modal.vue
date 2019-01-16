@@ -113,6 +113,7 @@ export default {
           newServe = [1, 3, 2, 0]
         }
       }
+      this.updateCurrentOrders({ game: this.game, add: false })
       this.initScore({ game: this.game, serve: newServe })
       this.setServe({ game: this.game, serve: newServe }).then(() => {
         this.closeModal()
