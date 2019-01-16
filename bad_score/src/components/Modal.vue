@@ -49,7 +49,7 @@ export default {
     ...mapState(['players', 'serves']),
   },
   methods: {
-    ...mapActions(['setServe', 'clearScore']),
+    ...mapActions(['setServe', 'initScore']),
     initModal(game) {
       let count = 0
       const len = this.serves[game].length
@@ -87,12 +87,14 @@ export default {
 
       let newServe = []
       if (this.players.length === 2) {
+        // singles
         if (this.serveS === 0) {
           newServe = [0, 1]
         } else {
           newServe = [1, 0]
         }
       } else {
+        // doubles
         if (this.serveS === 0 && this.serveR === 2) {
           newServe = [0, 2, 3, 1]
         } else if (this.serveS === 0 && this.serveR === 3) {
@@ -111,7 +113,7 @@ export default {
           newServe = [1, 3, 2, 0]
         }
       }
-      this.clearScore({ game: this.game, serve: newServe })
+      this.initScore({ game: this.game, serve: newServe })
       this.setServe({ game: this.game, serve: newServe }).then(() => {
         this.closeModal()
       })
