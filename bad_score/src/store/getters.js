@@ -5,7 +5,9 @@ export default {
     }
   },
   length: ({ players }) => {
-    return players.length
+    if (players) {
+      return players.length
+    }
   },
   totalScore: ({ totalScore }) => {
     return (i, j) => {

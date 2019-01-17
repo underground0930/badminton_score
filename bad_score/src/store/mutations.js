@@ -19,9 +19,9 @@ export default {
     state.players = players
     state.config = config
   },
-  setScore(state, { game, player, index, totalPoint, whichPoint }) {
-    state.totalScore[game].splice(whichPoint, 1, totalPoint)
-    state.scores[game][player][index]['num'] = totalPoint
+  setScore(state, { game, player, index, currentTotalPoint, isCurrent }) {
+    state.totalScore[game].splice(isCurrent, 1, currentTotalPoint)
+    state.scores[game][player][index]['num'] = currentTotalPoint
     state.currentIndexs[game] = state.currentIndexs[game] + 1
   },
   initTotalScore(state) {
@@ -36,8 +36,8 @@ export default {
   setServe(state, { game, serve }) {
     state.serves.splice(game, 1, serve)
   },
-  updateGamesResults(state, { game, whichPoint }) {
-    state.gamesResults[whichPoint] += 1
+  updateGamesResults(state, { game, isCurrent }) {
+    state.gamesResults[isCurrent] += 1
     state.gamesEnds[game] = true
   },
   updateCurrentOrders(state, { game, add }) {

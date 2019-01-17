@@ -85,7 +85,7 @@
               type='number'
               max="30"
               min="11"
-              v-model.number="config.point"
+              v-model.number="config.maxPoint"
             > 点
           </dd>
         </dl>
@@ -107,7 +107,7 @@ export default {
       config: {
         type: 0,
         setting: 1,
-        point: 21,
+        maxPoint: 21,
       },
       players: [],
     }
