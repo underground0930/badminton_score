@@ -3,6 +3,10 @@
     <!-- modal -->
     <Modal v-if="modal" :game="game" @close="hideModal" />
     <!--/ modal -->
+    <!-- setting -->
+    <div>セティング:{{config.setting ? 'あり' : 'なし'}}</div>
+    <div>1ゲームの点数:{{config.point}}</div>
+    <!--/ setting -->
     <!-- header -->
     <header class="header">
       <div class="header__names">
