@@ -10,6 +10,8 @@ const store = new Vuex.Store({
     currentOrders: [0, 0, 0],
     currentIndexs: [1, 1, 1],
     totalScore: [[0, 0], [0, 0], [0, 0]],
+    gamesResults: [0, 0],
+    gamesEnds: [false, false, false],
     serves: null,
     scores: null,
     players: null,
@@ -75,9 +77,9 @@ const store = new Vuex.Store({
       state.players = players
       state.config = config
     },
-    setScore(state, { game, player, index, point, whichPoint }) {
-      state.totalScore[game].splice(whichPoint, 1, point)
-      state.scores[game][player][index]['num'] = point
+    setScore(state, { game, player, index, totalPoint, whichPoint }) {
+      state.totalScore[game].splice(whichPoint, 1, totalPoint)
+      state.scores[game][player][index]['num'] = totalPoint
       state.currentIndexs[game] = state.currentIndexs[game] + 1
     },
     initTotalScore(state) {
@@ -92,6 +94,10 @@ const store = new Vuex.Store({
     setServe(state, { game, serve }) {
       state.serves.splice(game, 1, serve)
     },
+    updateGamesResults(state, { game, whichPoint }) {
+      state.gamesResults[whichPoint] += 1
+      state.gamesEnds[game] = true
+    },
     updateCurrentOrders(state, { game, add }) {
       if (add) {
         state.currentOrders[game] = state.currentOrders[game] + 1
@@ -102,13 +108,16 @@ const store = new Vuex.Store({
   },
   actions: {
     setScore({ state, commit, getters, dispatch }, { game, player, index }) {
-      const [type, currentIndexs] = [state.type, state.currentIndexs]
+      const { type, point } = state.config
       let whichPoint
       let orderObj = getters.newServeObj(game)
       let currentOrder = state.currentOrders[game]
 
       // 現在のindexだけclickを許可
-      if (currentIndexs[game] !== index) return
+      if (state.currentIndexs[game] !== index) return
+
+      // 現在のゲームは勝敗が決まっているので終了
+      if (state.gamesEnds[game] === true) return
 
       // 点数は順番に入っていく
       if (orderObj[currentOrder] === player) {
@@ -131,8 +140,14 @@ const store = new Vuex.Store({
       } else {
         whichPoint = player < 2 ? 0 : 1
       }
-      const point = state.totalScore[game][whichPoint] + 1
-      commit('setScore', { game, player, index, point, whichPoint })
+      // 点数を追加
+      const totalPoint = state.totalScore[game][whichPoint] + 1
+
+      // １ゲームの上限に到達したのでゲーム数を加算、終了フラグをたてる
+      if (totalPoint === point) {
+        commit('updateGamesResults', { game, whichPoint })
+      }
+      commit('setScore', { game, player, index, totalPoint, whichPoint })
     },
     updateCurrentOrders({ commit }, { game, add }) {
       commit('updateCurrentOrders', { game, add })

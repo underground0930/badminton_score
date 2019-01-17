@@ -13,7 +13,7 @@
           <span v-if="getPlayer(1).team">{{getPlayer(1).team}}・</span>{{getPlayer(1).name}}
         </div>
       </div>
-      <div class="header__winGames">1</div>
+      <div class="header__winGames">{{gamesResults[0]}}</div>
       <div class="header__results">
         <div class="header__result">
           <span>{{totalScore(0,0)}}</span> - <span>{{totalScore(0,1)}}</span>
@@ -25,7 +25,7 @@
           <span>{{totalScore(2,0)}}</span> - <span>{{totalScore(2,1)}}</span>
         </div>
       </div>
-      <div class="header__winGames">2</div>
+      <div class="header__winGames">{{gamesResults[1]}}</div>
       <div class="header__names">
         <div class="header__name">
           <span v-if="getPlayer(config.type === 1 ? 2 : 1).team">{{getPlayer(config.type === 1 ? 2 : 1).team}}・</span>{{getPlayer(config.type === 1 ? 2 : 1).name}}
@@ -126,7 +126,7 @@ export default {
     /// /////
   },
   computed: {
-    ...mapState(['players', 'serves', 'config']),
+    ...mapState(['players', 'serves', 'config', 'gamesResults']),
     ...mapGetters(['getPlayer', 'totalScore']),
   },
   methods: {
