@@ -2,11 +2,11 @@
   <main>
     <v-dialog
       v-model="error"
-      width="500"
+      width="400"
       >
       <v-card>
         <v-card-title
-          class="headline grey lighten-2"
+          class="title grey lighten-2 text-xs-center"
           primary-title
         >
           入力内容に不備があります
@@ -133,8 +133,8 @@ export default {
       return p <= max || p <= min
     },
     makePlayer(num) {
-      return [...Array(num)].map(v => {
-        return { team: '', name: '' }
+      return [...Array(num)].map((v, i) => {
+        return { team: '', name: '', index: i }
       })
     },
     updatePlayers() {

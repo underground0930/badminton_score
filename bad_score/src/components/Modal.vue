@@ -1,11 +1,11 @@
 <template>
     <v-dialog
       v-model="modal"
-      width="500"
+      width="280"
       >
       <v-card>
         <v-card-title
-          class="headline grey lighten-2"
+          class="title grey lighten-2 text-xs-center"
           primary-title
         >
           サーブ権 {{game + 1}}ゲーム目
@@ -13,16 +13,26 @@
         <v-card-text>
           <ul class="modal__lists">
             <li class="modal__list">
-              <span>[S]サーブ</span>
-              <select name='serve' v-model.number="serveS">
-                <option v-for="(player,index) in players" :key="index" :value="index"><span v-if="player.team">{{player.team}}・</span>{{player.name}}</option>
-              </select>
+              <span class="title">[S]サーブ</span>
+              <v-select
+                v-model.number="serveS"
+                :items="players"
+                item-text="name"
+                item-value="index"
+                label="[S]サーブ"
+                single-line
+              ></v-select>
             </li>
             <li class="modal__list">
-              <span>[R]レシーブ</span>
-              <select name='recieve' v-model.number="serveR">
-                <option v-for="(player,index) in players" :key="index" :value="index"><span v-if="player.team">{{player.team}}・</span>{{player.name}}</option>
-              </select>
+              <span class="title">[R]レシーブ</span>
+              <v-select
+                v-model.number="serveR"
+                :items="players"
+                item-text="name"
+                item-value="index"
+                label="[R]レシーブ"
+                single-line
+              ></v-select>
             </li>
           </ul>
         </v-card-text>
@@ -153,59 +163,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-/* modal */
-.modal {
-}
-.modal__bg {
-  position: fixed;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  background: rgba(0, 0, 0, 0.3);
-}
-.modal__inner {
-  position: fixed;
-  width: 400px;
-  height: 200px;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  margin: auto;
-  z-index: 2;
-  background: rgba(255, 255, 255, 1);
-  border-radius: 10px;
-}
-.modal__title {
-  text-align: center;
-  font-weight: bold;
-  padding: 15px 0 15px;
-  margin: 0 0 15px;
-  border-bottom: 1px dotted #000;
-}
-.modal__btns {
-  display: flex;
-  justify-content: center;
-}
-.modal__btn {
-  margin: 0 5px 0;
-}
-.modal__list {
-  display: flex;
-  justify-content: center;
-  margin: 0 0 10px;
-  span {
-    display: inline-block;
-    padding: 0 10px;
-    font-weight: bold;
-  }
-}
-select {
-  font-size: 16px;
-}
-option {
-  font-size: 16px;
+ul {
+  padding-left: 0;
 }
 </style>

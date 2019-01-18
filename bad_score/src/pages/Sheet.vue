@@ -4,8 +4,8 @@
     <Modal :game="game" :modal="modal" @close="hideModal" />
     <!--/ modal -->
     <!-- setting -->
-    <div>セティング:{{config.setting ? 'あり' : 'なし'}}</div>
-    <div>1ゲームの点数:{{config.point}}</div>
+    <div class="text-xs-center">セティング : <b>{{config.setting ? 'あり' : 'なし'}}</b></div>
+    <div class="text-xs-center mb-3">1ゲームの点数 : <b>{{config.maxPoint}}</b></div>
     <!--/ setting -->
     <!-- header -->
     <header class="header">
