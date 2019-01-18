@@ -1,9 +1,11 @@
 <template>
   <div id="app">
+    <v-app>
     <div class="wrapper">
       <h1 class="mainTitle">バドミントンスコアシート</h1>
       <router-view />
     </div>
+    </v-app>
   </div>
 </template>
 
