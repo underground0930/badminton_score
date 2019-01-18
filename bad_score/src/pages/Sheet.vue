@@ -38,7 +38,7 @@
     <div class="score">
       <section class="score__section">
         <header class="score__header">
-          <h2 class="score__title">■1ゲーム目</h2>
+          <h2 class="score__title title">■1ゲーム目</h2>
           <v-btn color="info" @click="showModal(0)">サーブ権を変更する</v-btn>
         </header>
         <div class="score__child">
@@ -58,7 +58,7 @@
       </section>
       <section class="score__section">
         <header class="score__header">
-          <h2 class="score__title">■2ゲーム目</h2>
+          <h2 class="score__title title">■2ゲーム目</h2>
           <v-btn color="info" @click="showModal(1)">サーブ権を変更する</v-btn>
         </header>
         <div class="score__child">
@@ -78,7 +78,7 @@
       </section>
       <section class="score__section">
         <header class="score__header">
-          <h2 class="score__title">■3ゲーム目</h2>
+          <h2 class="score__title title">■3ゲーム目</h2>
           <v-btn color="info" @click="showModal(2)">サーブ権を変更する</v-btn>
         </header>
         <div class="score__child">
@@ -173,14 +173,13 @@ export default {
 .header__result {
   text-align: center;
 }
-
 /* score */
 .score__section {
   margin: 0 0 20px;
 }
 .score__header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   margin: 0 0 10px;
 }
 .score__title {
