@@ -1,7 +1,7 @@
 <template>
   <main>
     <!-- modal -->
-    <Modal v-if="modal" :game="game" @close="hideModal" />
+    <Modal :game="game" :modal="modal" @close="hideModal" />
     <!--/ modal -->
     <!-- setting -->
     <div>セティング:{{config.setting ? 'あり' : 'なし'}}</div>
@@ -19,14 +19,8 @@
       </div>
       <div class="header__winGames">{{gamesResults[0]}}</div>
       <div class="header__results">
-        <div class="header__result">
-          <span>{{totalScore(0,0)}}</span> - <span>{{totalScore(0,1)}}</span>
-        </div>
-        <div class="header__result">
-          <span>{{totalScore(1,0)}}</span> - <span>{{totalScore(1,1)}}</span>
-        </div>
-        <div class="header__result">
-          <span>{{totalScore(2,0)}}</span> - <span>{{totalScore(2,1)}}</span>
+        <div class="header__result" v-for="n in [0,1,2]" :key="n">
+          <span>{{totalScore(n,0)}}</span> - <span>{{totalScore(n,1)}}</span>
         </div>
       </div>
       <div class="header__winGames">{{gamesResults[1]}}</div>

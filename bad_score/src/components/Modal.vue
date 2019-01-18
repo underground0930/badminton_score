@@ -1,9 +1,16 @@
 <template>
-    <transition>
-      <div class="modal">
-        <div class="modal__bg"></div>
-        <div class='modal__inner'>
-          <h2 class="modal__title">サーブ権 {{game + 1}}ゲーム目</h2>
+    <v-dialog
+      v-model="modal"
+      width="500"
+      >
+      <v-card>
+        <v-card-title
+          class="headline grey lighten-2"
+          primary-title
+        >
+          サーブ権 {{game + 1}}ゲーム目
+        </v-card-title>
+        <v-card-text>
           <ul class="modal__lists">
             <li class="modal__list">
               <span>[S]サーブ</span>
@@ -18,17 +25,27 @@
               </select>
             </li>
           </ul>
-          <div class="modal__btns">
-            <div class="modal__btn">
-              <button @click="updateServe">変更する</button>
-            </div>
-            <div class="modal__btn">
-              <button @click="closeModal">閉じる</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </transition>
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            flat
+            @click="updateServe"
+          >
+            変更する
+          </v-btn>
+          <v-btn
+            color="primary"
+            flat
+            @click="closeModal"
+          >
+            閉じる
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
 </template>
 
 <script>
@@ -44,7 +61,7 @@ export default {
   created() {
     this.initModal(this.game)
   },
-  props: ['game'],
+  props: ['game', 'modal'],
   computed: {
     ...mapState(['players', 'serves']),
   },

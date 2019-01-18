@@ -1,6 +1,30 @@
 <template>
   <main>
-
+    <v-dialog
+      v-model="error"
+      width="500"
+      >
+      <v-card>
+        <v-card-title
+          class="headline grey lighten-2"
+          primary-title
+        >
+          入力内容に不備があります
+        </v-card-title>
+        <v-card-text>{{errorText}}</v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn
+            color="primary"
+            flat
+            @click="error = false"
+          >
+            閉じる
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
     <ul class="lists">
       <li class="list">
         <dl class="list__child">
@@ -21,7 +45,7 @@
       </li>
       <li class="list">
         <dl class="list__child">
-          <dt class="subheading">●メンバー</dt>
+          <dt class="subheading">●メンバー【名前は必須、チーム名は省略可】</dt>
           <dd class="member">
             <div>
               <v-text-field label="チームA" v-model="players[0].team"></v-text-field>
@@ -45,7 +69,7 @@
       </li>
       <li class="list">
         <dl class="list__child">
-          <dt class="subheading">●セティング<span>(max30点で終了です)</span></dt>
+          <dt class="subheading">●セティング<span>【max30点で終了です】</span></dt>
           <dd>
             <v-radio-group v-model="config.setting">
               <v-radio
@@ -62,7 +86,7 @@
       </li>
       <li class="list">
         <dl>
-          <dt class="subheading">●1ゲームの得点<span>{{`(${maxPointRange[0]} ~ ${maxPointRange[1]})`}}</span></dt>
+          <dt class="subheading">●1ゲームの得点<span>{{`【${maxPointRange[0]} ~ ${maxPointRange[1]}点の間で指定してください】`}}</span></dt>
           <dd>
             <v-text-field type="number" :max="maxPointRange[1]" :min="maxPointRange[0]" v-model="config.maxPoint"></v-text-field>
           </dd>
@@ -72,7 +96,6 @@
     <div>
       <v-btn color="success" :append="true" to="/sheet">スコアをつける</v-btn>
     </div>
-
   </main>
 </template>
 
@@ -90,6 +113,8 @@ export default {
       },
       players: [],
       maxPointRange: [5, 30],
+      error: false,
+      errorText: '',
     }
   },
   created() {
@@ -105,7 +130,7 @@ export default {
       const p = this.config.maxPoint
       const min = this.maxPointRange[0]
       const max = this.maxPointRange[1]
-      return p >= max || p <= min
+      return p <= max || p <= min
     },
     makePlayer(num) {
       return [...Array(num)].map(v => {
@@ -123,14 +148,14 @@ export default {
   },
   beforeRouteLeave(to, from, next) {
     if (!this.validateName()) {
-      alert('メンバーの名前が空欄の箇所があります。')
+      this.errorText = 'メンバーの名前が空欄の箇所があります。'
+      this.error = true
       return
     } else if (!this.validateMaxPoint()) {
-      alert(
-        `ゲームポイントは${this.maxPointRange[0]}点以上${
-          this.maxPointRange[1]
-        }点以下にしてください。`
-      )
+      this.errorText = `ゲームポイントは${this.maxPointRange[0]}点以上${
+        this.maxPointRange[1]
+      }点以下にしてください。`
+      this.error = true
       return
     }
     if (confirm('上記の設定でスコアシートを作成しますか？')) {
