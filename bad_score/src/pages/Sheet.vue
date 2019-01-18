@@ -45,7 +45,7 @@
       <section class="score__section">
         <header class="score__header">
           <h2 class="score__title">■1ゲーム目</h2>
-          <button @click="showModal(0)">サーブ権を変更する</button>
+          <v-btn color="info" @click="showModal(0)">サーブ権を変更する</v-btn>
         </header>
         <div class="score__child">
           <div class="score__head">
@@ -65,7 +65,7 @@
       <section class="score__section">
         <header class="score__header">
           <h2 class="score__title">■2ゲーム目</h2>
-          <button @click="showModal(1)">サーブ権を変更する</button>
+          <v-btn color="info" @click="showModal(1)">サーブ権を変更する</v-btn>
         </header>
         <div class="score__child">
           <div class="score__head">
@@ -85,7 +85,7 @@
       <section class="score__section">
         <header class="score__header">
           <h2 class="score__title">■3ゲーム目</h2>
-          <button @click="showModal(2)">サーブ権を変更する</button>
+          <v-btn color="info" @click="showModal(2)">サーブ権を変更する</v-btn>
         </header>
         <div class="score__child">
           <div class="score__head">

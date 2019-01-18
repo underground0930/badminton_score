@@ -4,7 +4,7 @@
     <ul class="lists">
       <li class="list">
         <dl class="list__child">
-          <dt class="title">■種目</dt>
+          <dt class="subheading">●種目</dt>
           <dd>
             <v-radio-group v-model="config.type" @change="updatePlayers">
               <v-radio
@@ -21,35 +21,31 @@
       </li>
       <li class="list">
         <dl class="list__child">
-          <dt class="title">■メンバー</dt>
+          <dt class="subheading">●メンバー</dt>
           <dd class="member">
-            <ul>
-              <li>
-                <v-text-field label="チーム名" v-model="players[0].team"></v-text-field>
-                <v-text-field label="名前" v-model="players[0].name"></v-text-field>
-              </li>
-              <li v-if="config.type === 1">
-                <v-text-field label="チーム名" v-model="players[1].team"></v-text-field>
-                <v-text-field label="名前" v-model="players[1].name"></v-text-field>
-              </li>
-            </ul>
-            <p>vs</p>
-            <ul>
-              <li>
-                <v-text-field label="チーム名" v-model="players[config.type === 1 ? 2 : 1].team"></v-text-field>
-                <v-text-field label="名前" v-model="players[config.type === 1 ? 2 : 1].name"></v-text-field>
-              </li>
-              <li v-if="config.type === 1">
-                <v-text-field label="チーム名" v-model="players[3].team"></v-text-field>
-                <v-text-field label="名前" v-model="players[3].name"></v-text-field>
-              </li>
-            </ul>
+            <div>
+              <v-text-field label="チームA" v-model="players[0].team"></v-text-field>
+              <v-text-field label="名前1" v-model="players[0].name"></v-text-field>
+            </div>
+            <div v-if="config.type === 1">
+              <v-text-field label="チームA" v-model="players[1].team"></v-text-field>
+              <v-text-field label="名前2" v-model="players[1].name"></v-text-field>
+            </div>
+            <div :class="['pt-3']" class="text-xs-center headline">VS</div>
+            <div>
+              <v-text-field :class="['pt-0']" label="チームB" v-model="players[config.type === 1 ? 2 : 1].team"></v-text-field>
+              <v-text-field label="名前3" v-model="players[config.type === 1 ? 2 : 1].name"></v-text-field>
+            </div>
+            <div v-if="config.type === 1">
+              <v-text-field label="チームB" v-model="players[3].team"></v-text-field>
+              <v-text-field label="名前4" v-model="players[3].name"></v-text-field>
+            </div>
           </dd>
         </dl>
       </li>
       <li class="list">
         <dl class="list__child">
-          <dt class="title">■セティング<span>(max30点で終了です)</span></dt>
+          <dt class="subheading">●セティング<span>(max30点で終了です)</span></dt>
           <dd>
             <v-radio-group v-model="config.setting">
               <v-radio
@@ -66,14 +62,9 @@
       </li>
       <li class="list">
         <dl>
-          <dt class="title">■1ゲームの得点<span>(11 ~ 30)</span></dt>
+          <dt class="subheading">●1ゲームの得点<span>{{`(${maxPointRange[0]} ~ ${maxPointRange[1]})`}}</span></dt>
           <dd>
-            <input
-              type='number'
-              max="30"
-              min="11"
-              v-model.number="config.maxPoint"
-            > 点
+            <v-text-field type="number" :max="maxPointRange[1]" :min="maxPointRange[0]" v-model="config.maxPoint"></v-text-field>
           </dd>
         </dl>
       </li>
@@ -98,6 +89,7 @@ export default {
         maxPoint: 21,
       },
       players: [],
+      maxPointRange: [5, 30],
     }
   },
   created() {
@@ -108,6 +100,12 @@ export default {
       return this.players.every(v => {
         return v.name.trim() !== ''
       })
+    },
+    validateMaxPoint() {
+      const p = this.config.maxPoint
+      const min = this.maxPointRange[0]
+      const max = this.maxPointRange[1]
+      return p >= max || p <= min
     },
     makePlayer(num) {
       return [...Array(num)].map(v => {
@@ -127,6 +125,13 @@ export default {
     if (!this.validateName()) {
       alert('メンバーの名前が空欄の箇所があります。')
       return
+    } else if (!this.validateMaxPoint()) {
+      alert(
+        `ゲームポイントは${this.maxPointRange[0]}点以上${
+          this.maxPointRange[1]
+        }点以下にしてください。`
+      )
+      return
     }
     if (confirm('上記の設定でスコアシートを作成しますか？')) {
       this.init({ config: this.config, players: this.players })
@@ -141,20 +146,5 @@ export default {
 <style scoped lang="scss">
 ul {
   padding-left: 0;
-}
-.list {
-}
-.member {
-  display: flex;
-  align-items: center;
-  p {
-    padding: 0 10px 0;
-    font-weight: bold;
-    font-size: 20px;
-  }
-}
-input[type='text'],
-input[type='number'] {
-  font-size: 16px;
 }
 </style>
