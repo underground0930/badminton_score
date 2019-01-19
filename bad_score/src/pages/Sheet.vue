@@ -1,7 +1,7 @@
 <template>
   <main>
     <!-- modal -->
-    <Modal :game="game" :modal="modal" @close="hideModal" />
+    <serve-modal :game="game" :modal="modal" @close="hideModal" />
     <!--/ modal -->
     <!-- setting -->
     <div class="text-xs-center">セティング : <b>{{config.setting ? 'あり' : 'なし'}}</b></div>
@@ -43,16 +43,16 @@
         </header>
         <div class="score__child">
           <div class="score__head">
-            <ScoreHead :game="0" :player="0" />
-            <ScoreHead :game="0" :player="1" />
-            <ScoreHead :game="0" :player="2" v-if="config.type === 1" />
-            <ScoreHead :game="0" :player="3" v-if="config.type === 1" />
+            <score-head :game="0" :player="0" />
+            <score-head :game="0" :player="1" />
+            <score-head :game="0" :player="2" v-if="config.type === 1" />
+            <score-head :game="0" :player="3" v-if="config.type === 1" />
           </div>
           <div class="score__body">
-            <ScoreBody :game="0" :player="0" />
-            <ScoreBody :game="0" :player="1" />
-            <ScoreBody :game="0" :player="2" v-if="config.type === 1" />
-            <ScoreBody :game="0" :player="3" v-if="config.type === 1" />
+            <score-body :game="0" :player="0" />
+            <score-body :game="0" :player="1" />
+            <score-body :game="0" :player="2" v-if="config.type === 1" />
+            <score-body :game="0" :player="3" v-if="config.type === 1" />
           </div>
         </div>
       </section>
@@ -63,16 +63,16 @@
         </header>
         <div class="score__child">
           <div class="score__head">
-            <ScoreHead :game="1" :player="0" />
-            <ScoreHead :game="1" :player="1" />
-            <ScoreHead :game="1" :player="2" v-if="config.type === 1" />
-            <ScoreHead :game="1" :player="3" v-if="config.type === 1" />
+            <score-head :game="1" :player="0" />
+            <score-head :game="1" :player="1" />
+            <score-head :game="1" :player="2" v-if="config.type === 1" />
+            <score-head :game="1" :player="3" v-if="config.type === 1" />
           </div>
           <div class="score__body">
-            <ScoreBody :game="1" :player="0" />
-            <ScoreBody :game="1" :player="1" />
-            <ScoreBody :game="1" :player="2" v-if="config.type === 1" />
-            <ScoreBody :game="1" :player="3" v-if="config.type === 1" />
+            <score-body :game="1" :player="0" />
+            <score-body :game="1" :player="1" />
+            <score-body :game="1" :player="2" v-if="config.type === 1" />
+            <score-body :game="1" :player="3" v-if="config.type === 1" />
           </div>
         </div>
       </section>
@@ -83,16 +83,16 @@
         </header>
         <div class="score__child">
           <div class="score__head">
-            <ScoreHead :game="2" :player="0" />
-            <ScoreHead :game="2" :player="1" />
-            <ScoreHead :game="2" :player="2" v-if="config.type === 1" />
-            <ScoreHead :game="2" :player="3" v-if="config.type === 1" />
+            <score-head :game="2" :player="0" />
+            <score-head :game="2" :player="1" />
+            <score-head :game="2" :player="2" v-if="config.type === 1" />
+            <score-head :game="2" :player="3" v-if="config.type === 1" />
           </div>
           <div class="score__body">
-            <ScoreBody :game="2" :player="0" />
-            <ScoreBody :game="2" :player="1" />
-            <ScoreBody :game="2" :player="2" v-if="config.type === 1" />
-            <ScoreBody :game="2" :player="3" v-if="config.type === 1" />
+            <score-body :game="2" :player="0" />
+            <score-body :game="2" :player="1" />
+            <score-body :game="2" :player="2" v-if="config.type === 1" />
+            <score-body :game="2" :player="3" v-if="config.type === 1" />
           </div>
         </div>
       </section>
@@ -105,14 +105,14 @@
 import { mapGetters, mapState } from 'vuex'
 import ScoreHead from '../components/ScoreHead'
 import ScoreBody from '../components/ScoreBody'
-import Modal from '../components/Modal'
+import ServeModal from '../components/ServeModal'
 
 export default {
   name: 'Sheet',
   components: {
     ScoreHead,
     ScoreBody,
-    Modal,
+    ServeModal,
   },
   data() {
     return {

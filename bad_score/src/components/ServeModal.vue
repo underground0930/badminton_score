@@ -61,7 +61,7 @@
 <script>
 import { mapState, mapActions } from 'vuex'
 export default {
-  name: 'Modal',
+  name: 'ServeModal',
   data() {
     return {
       serveS: '',

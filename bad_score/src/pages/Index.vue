@@ -1,30 +1,6 @@
 <template>
   <main>
-    <v-dialog
-      v-model="error"
-      width="400"
-      >
-      <v-card>
-        <v-card-title
-          class="title grey lighten-2 text-xs-center"
-          primary-title
-        >
-          入力内容に不備があります
-        </v-card-title>
-        <v-card-text>{{errorText}}</v-card-text>
-        <v-divider></v-divider>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="primary"
-            flat
-            @click="error = false"
-          >
-            閉じる
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+    <alert-modal :error="error" :errorText="errorText" @closeError="error = false" />
     <ul class="lists">
       <li class="list">
         <dl class="list__child">
@@ -101,9 +77,12 @@
 
 <script>
 import { mapMutations } from 'vuex'
+import AlertModal from '../components/AlertModal'
 export default {
   name: 'Index',
-  components: {},
+  components: {
+    AlertModal,
+  },
   data() {
     return {
       config: {
