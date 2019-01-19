@@ -55,7 +55,7 @@ export default {
     /// /////// ここにセティングの処理を書く
 
     const conditions = {
-      a: maxPoint === 30, // 30点は無条件で、終了フラグをたてる
+      a: currentTotalPoint === 30, // 30点は無条件で、終了フラグをたてる
       b: !setting && currentTotalPoint === maxPoint, // １ゲームの上限に到達したのでゲーム数を加算、終了フラグをたてる
       c:
         setting &&
