@@ -98,9 +98,9 @@
       </section>
     </div>
     <!--/ score -->
-    <footer class="footer">
+    <div class="initBtn">
       <v-btn color="error" :append="true" to="/">スコアの初期化</v-btn>
-    </footer>
+    </div>
   </main>
 </template>
 
@@ -209,7 +209,7 @@ export default {
   padding-left: 10em;
   overflow-x: scroll;
 }
-.footer {
+.initBtn {
   .error {
     display: flex;
     justify-content: center;

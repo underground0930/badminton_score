@@ -13,7 +13,7 @@
         <v-card-text>
           <ul class="modal__lists">
             <li class="modal__list">
-              <span class="subTitle">[S]サーブ</span>
+              <span class="subTitle">【S】サーブ</span>
               <v-select
                 v-model.number="serveS"
                 :items="players"
@@ -24,7 +24,7 @@
               ></v-select>
             </li>
             <li class="modal__list">
-              <span class="subTitle">[R]レシーブ</span>
+              <span class="subTitle">【R】レシーブ</span>
               <v-select
                 v-model.number="serveR"
                 :items="players"
