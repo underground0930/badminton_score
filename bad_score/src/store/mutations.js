@@ -74,6 +74,13 @@ export default {
       state.gamesEnds[game] = null
     }
   },
+  initAllGameData(state) {
+    state.currentIndexs = [1, 1, 1]
+    state.currentOrders = [0, 0, 0]
+    state.totalScores = [[0, 0], [0, 0], [0, 0]]
+    state.gamesResults = [0, 0]
+    state.gamesEnds = [null, null, null]
+  },
   setGamesResults(state, { game, current }) {
     state.gamesResults[current] += 1
     state.gamesEnds[game] = current

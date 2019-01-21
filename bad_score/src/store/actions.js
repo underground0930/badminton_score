@@ -79,4 +79,7 @@ export default {
     commit('initGameData', { game, serve })
     dispatch('setCurrentOrders', { game, add })
   },
+  initAllGameData({ commit }) {
+    commit('initAllGameData')
+  },
 }

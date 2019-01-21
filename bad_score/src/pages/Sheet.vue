@@ -98,11 +98,14 @@
       </section>
     </div>
     <!--/ score -->
+    <footer class="footer">
+      <v-btn color="error" :append="true" to="/">スコアの初期化</v-btn>
+    </footer>
   </main>
 </template>
 
 <script>
-import { mapGetters, mapState } from 'vuex'
+import { mapGetters, mapState, mapActions } from 'vuex'
 import ScoreHead from '../components/ScoreHead'
 import ScoreBody from '../components/ScoreBody'
 import ServeModal from '../components/ServeModal'
@@ -128,6 +131,7 @@ export default {
     ...mapGetters(['getPlayer', 'totalScores']),
   },
   methods: {
+    ...mapActions(['initAllGameData']),
     showModal(game) {
       this.game = game
       this.modal = true
@@ -142,6 +146,10 @@ export default {
     } else {
       next({ path: '/' })
     }
+  },
+  beforeRouteLeave(to, from, next) {
+    this.initAllGameData()
+    next()
   },
 }
 </script>
@@ -200,5 +208,11 @@ export default {
 .score__body {
   padding-left: 10em;
   overflow-x: scroll;
+}
+.footer {
+  .error {
+    display: flex;
+    justify-content: center;
+  }
 }
 </style>
