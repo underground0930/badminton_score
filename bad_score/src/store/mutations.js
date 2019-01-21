@@ -42,7 +42,7 @@ export default {
       })
       arr.splice(i, 1, newScore)
     })
-    serveIndex = state.serves[game].indexOf(server)
+    serveIndex = state.serves[game][server]
 
     which = whichPoint(type, server)
     let score = []
@@ -56,7 +56,7 @@ export default {
       const concatOtherArray = currentScore[which.other * 2].concat(
         currentScore[which.other * 2 + 1]
       )
-      score[which.other] = concatOtherArray[which.other].reduce((p, n) => {
+      score[which.other] = concatOtherArray.reduce((p, n) => {
         return Math.max(p, n.num)
       }, 0)
     }
