@@ -31,7 +31,7 @@ th,
 td {
   border-right: 1px solid #000;
   border-bottom: 1px solid #000;
-  height: 2em;
+  height: 2.5em;
   vertical-align: middle;
 }
 td {
@@ -43,7 +43,7 @@ td {
   font-size: 14px;
 }
 .serve {
-  width: 1.5em;
+  width: 2em;
   font-weight: bold;
 }
 </style>
