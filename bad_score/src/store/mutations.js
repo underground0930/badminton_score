@@ -35,7 +35,11 @@ export default {
         serverPoint = v[index - 1].num
       }
       let newScore = v.slice()
-      newScore.fill({ num: null }, index)
+      newScore.forEach((v, i) => {
+        if (i >= index) {
+          newScore[i] = { num: null, index: i }
+        }
+      })
       arr.splice(i, 1, newScore)
     })
     serveIndex = state.serves[game].indexOf(server)
@@ -43,19 +47,22 @@ export default {
     which = whichPoint(type, server)
     let score = []
     score[which.current] = serverPoint
-    console.log(serverPoint)
 
     if (type === 0) {
-      score[which.ohter] = Math.max(...currentScore[which.other])
+      score[which.other] = currentScore[which.other].reduce((p, n) => {
+        return Math.max(p, n.num)
+      }, 0)
     } else {
       const concatOtherArray = currentScore[which.other * 2].concat(
         currentScore[which.other * 2 + 1]
       )
-      score[which.ohter] = Math.max(...concatOtherArray)
+      score[which.other] = concatOtherArray[which.other].reduce((p, n) => {
+        return Math.max(p, n.num)
+      }, 0)
     }
     state.currentOrders[game] = serveIndex
-    state.currentIndexs[game] = index - 1
-    state.totalScores[game] = score
+    state.currentIndexs[game] = index
+    state.totalScores.splice(game, 1, score)
   },
   initGameData(state, { game, serve }) {
     state.currentIndexs[game] = 1
