@@ -44,8 +44,8 @@ export default {
     })
     serveIndex = state.serves[game][server]
 
-    which = whichPoint(type, server)
     let score = []
+    which = whichPoint(type, server)
     score[which.current] = serverPoint
 
     if (type === 0) {

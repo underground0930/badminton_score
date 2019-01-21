@@ -124,7 +124,7 @@ export default {
     }
   },
   mounted() {
-    /// /////
+    this.$vuetify.goTo(0, { duration: 100 })
   },
   computed: {
     ...mapState(['players', 'serves', 'config', 'gamesResults']),

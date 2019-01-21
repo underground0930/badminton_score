@@ -99,6 +99,9 @@ export default {
   created() {
     this.updatePlayers()
   },
+  mounted() {
+    this.$vuetify.goTo(0, { duration: 100 })
+  },
   methods: {
     validateName() {
       return this.players.every(v => {
