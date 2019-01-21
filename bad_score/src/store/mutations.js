@@ -24,21 +24,29 @@ export default {
     state.scores[game][player][index]['num'] = currentTotalPoint
     state.currentIndexs[game] = state.currentIndexs[game] + 1
   },
-  initScore(state, { game, serve }) {
+  rollbackGameData(state, { game, index }) {
+    state.currentIndexs[game] = index - 1
+    state.scores[game].forEach((v, i, arr) => {
+      let newScore = v.slice()
+      newScore.fill({ num: null }, index)
+      arr.splice(i, 1, newScore)
+    })
+
+    /// ////////////
+  },
+  initGameData(state, { game, serve }) {
+    state.currentIndexs[game] = 1
+    state.totalScores.splice(game, 1, [0, 0])
     state.scores.splice(game, 1, serve.map(v => score(v, serve)))
-  },
-  initTotalScores(state) {
-    state.totalScores = [[0, 0], [0, 0], [0, 0]]
-  },
-  initCurrentIndexs(state) {
-    state.currentIndexs = [1, 1, 1]
-  },
-  setServe(state, { game, serve }) {
     state.serves.splice(game, 1, serve)
+    if (state.gamesEnds[game] !== null) {
+      state.gamesResults[state.gamesEnds[game]] -= 1
+      state.gamesEnds[game] = null
+    }
   },
   setGamesResults(state, { game, isCurrent }) {
     state.gamesResults[isCurrent] += 1
-    state.gamesEnds[game] = true
+    state.gamesEnds[game] = isCurrent
   },
   setCurrentOrders(state, { game, add }) {
     if (add) {

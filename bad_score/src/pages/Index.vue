@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapActions } from 'vuex'
 import AlertModal from '../components/AlertModal'
 export default {
   name: 'Index',
@@ -123,7 +123,7 @@ export default {
         this.players = this.makePlayer(4)
       }
     },
-    ...mapMutations(['init']),
+    ...mapActions(['init']),
   },
   beforeRouteLeave(to, from, next) {
     if (!this.validateName()) {

@@ -1,4 +1,7 @@
 export default {
+  init({ commit }, payload) {
+    commit('init', payload)
+  },
   setScore({ state, commit, getters, dispatch }, { game, player, index }) {
     const { type, maxPoint, setting } = state.config
     let isCurrent
@@ -8,19 +11,28 @@ export default {
     let orderObj = getters.newServeObj(game)
     let currentOrder = state.currentOrders[game]
 
+    // 現在のゲームは勝敗が決まっているので終了
+    if (state.gamesEnds[game] !== null) return
+
+    // 直したい点数をロールバックする
+    if (
+      state.currentIndexs[game] > index &&
+      confirm('クリックした位置まで点数を戻しますか？')
+    ) {
+      commit('rollbackGameData', { game, index })
+      return
+    }
+
     // 現在のindexだけclickを許可
     if (state.currentIndexs[game] !== index) return
-
-    // 現在のゲームは勝敗が決まっているので終了
-    if (state.gamesEnds[game] === true) return
 
     // サーブ権を順番どおりに変更
     if (orderObj[currentOrder + 1] === player) {
       // サービスオーバーで得点
-      dispatch(' setCurrentOrders', { game, add: true })
+      dispatch('setCurrentOrders', { game, add: true })
     } else if (currentOrder + 1 === getters.length && orderObj[0] === player) {
       // サービスオーバーで得点 0からスタート
-      dispatch(' setCurrentOrders', { game, add: false })
+      dispatch('setCurrentOrders', { game, add: false })
     } else if (orderObj[currentOrder] !== player) {
       // 上記以外で順番が合わない場合は除く
       return
@@ -68,18 +80,10 @@ export default {
     commit('setScore', { game, player, index, currentTotalPoint, isCurrent })
   },
   setCurrentOrders({ commit }, { game, add }) {
-    commit(' setCurrentOrders', { game, add })
+    commit('setCurrentOrders', { game, add })
   },
-  initCurrentIndexs({ commit }) {
-    commit('initCurrentIndexs')
-  },
-  initScore({ commit }, { game, serve }) {
-    commit('initScore', { game, serve })
-  },
-  setServe({ commit }, { game, serve }) {
-    commit('setServe', { game, serve })
-  },
-  initTotalScores({ commit }) {
-    commit('initTotalScores')
+  initGameData({ commit, dispatch }, { game, serve, add }) {
+    commit('initGameData', { game, serve })
+    dispatch('setCurrentOrders', { game, add })
   },
 }

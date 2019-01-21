@@ -12,7 +12,7 @@ const state = {
   currentIndexs: [1, 1, 1],
   totalScores: [[0, 0], [0, 0], [0, 0]],
   gamesResults: [0, 0],
-  gamesEnds: [false, false, false],
+  gamesEnds: [null, null, null],
   serves: null,
   scores: null,
   players: null,

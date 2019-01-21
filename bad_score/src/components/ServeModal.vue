@@ -76,13 +76,7 @@ export default {
     ...mapState(['players', 'serves']),
   },
   methods: {
-    ...mapActions([
-      'setServe',
-      'initScore',
-      'setCurrentOrders',
-      'initCurrentIndexs',
-      'initTotalScores',
-    ]),
+    ...mapActions(['initGameData']),
     initModal(game) {
       let count = 0
       const len = this.serves[game].length
@@ -149,13 +143,11 @@ export default {
       }
 
       // 初期化処理
-      this.initTotalScores()
-      this.initCurrentIndexs()
-      this.setCurrentOrders({ game: this.game, add: false })
-      this.initScore({ game: this.game, serve: newServe })
-      this.setServe({ game: this.game, serve: newServe }).then(() => {
-        this.closeModal()
-      })
+      this.initGameData({ game: this.game, serve: newServe, add: false }).then(
+        () => {
+          this.closeModal()
+        }
+      )
     },
   },
 }

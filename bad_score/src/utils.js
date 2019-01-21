@@ -6,8 +6,8 @@ export const score = (v, arr) => {
   }
   return [...Array(70)].map((item, index) => {
     if (index === 0) {
-      return { num: zero, index: index }
+      return { num: zero }
     }
-    return { num: null, index: index }
+    return { num: null }
   })
 }
