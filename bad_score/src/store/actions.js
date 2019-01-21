@@ -15,16 +15,14 @@ export default {
     if (state.gamesEnds[game] === true) return
 
     // サーブ権を順番どおりに変更
-    if (orderObj[currentOrder] === player) {
-      // 同じ人が連続で得点
-    } else if (orderObj[currentOrder + 1] === player) {
+    if (orderObj[currentOrder + 1] === player) {
       // サービスオーバーで得点
-      dispatch('updateCurrentOrders', { game, add: true })
+      dispatch(' setCurrentOrders', { game, add: true })
     } else if (currentOrder + 1 === getters.length && orderObj[0] === player) {
       // サービスオーバーで得点 0からスタート
-      dispatch('updateCurrentOrders', { game, add: false })
-    } else {
-      // 上記以外は除く
+      dispatch(' setCurrentOrders', { game, add: false })
+    } else if (orderObj[currentOrder] !== player) {
+      // 上記以外で順番が合わない場合は除く
       return
     }
 
@@ -49,8 +47,8 @@ export default {
     }
 
     // 点数を追加
-    currentTotalPoint = state.totalScore[game][isCurrent] + 1
-    otherTotalPoint = state.totalScore[game][isOther]
+    currentTotalPoint = state.totalScores[game][isCurrent] + 1
+    otherTotalPoint = state.totalScores[game][isOther]
 
     /// /////// ここにセティングの処理を書く
 
@@ -64,13 +62,13 @@ export default {
     }
 
     if (conditions['a'] || conditions['b'] || conditions['c']) {
-      commit('updateGamesResults', { game, isCurrent })
+      commit('setGamesResults', { game, isCurrent })
     }
 
     commit('setScore', { game, player, index, currentTotalPoint, isCurrent })
   },
-  updateCurrentOrders({ commit }, { game, add }) {
-    commit('updateCurrentOrders', { game, add })
+  setCurrentOrders({ commit }, { game, add }) {
+    commit(' setCurrentOrders', { game, add })
   },
   initCurrentIndexs({ commit }) {
     commit('initCurrentIndexs')
@@ -81,7 +79,7 @@ export default {
   setServe({ commit }, { game, serve }) {
     commit('setServe', { game, serve })
   },
-  initTotalScore({ commit }) {
-    commit('initTotalScore')
+  initTotalScores({ commit }) {
+    commit('initTotalScores')
   },
 }

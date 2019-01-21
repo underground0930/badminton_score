@@ -10,7 +10,7 @@ const state = {
   config: null,
   currentOrders: [0, 0, 0],
   currentIndexs: [1, 1, 1],
-  totalScore: [[0, 0], [0, 0], [0, 0]],
+  totalScores: [[0, 0], [0, 0], [0, 0]],
   gamesResults: [0, 0],
   gamesEnds: [false, false, false],
   serves: null,

@@ -79,9 +79,9 @@ export default {
     ...mapActions([
       'setServe',
       'initScore',
-      'updateCurrentOrders',
+      'setCurrentOrders',
       'initCurrentIndexs',
-      'initTotalScore',
+      'initTotalScores',
     ]),
     initModal(game) {
       let count = 0
@@ -149,11 +149,10 @@ export default {
       }
 
       // 初期化処理
-      this.initTotalScore()
+      this.initTotalScores()
       this.initCurrentIndexs()
-      this.updateCurrentOrders({ game: this.game, add: false })
+      this.setCurrentOrders({ game: this.game, add: false })
       this.initScore({ game: this.game, serve: newServe })
-      // サーブ権を新しく設定する
       this.setServe({ game: this.game, serve: newServe }).then(() => {
         this.closeModal()
       })

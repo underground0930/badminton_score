@@ -9,9 +9,9 @@ export default {
       return players.length
     }
   },
-  totalScore: ({ totalScore }) => {
+  totalScores: ({ totalScores }) => {
     return (i, j) => {
-      return totalScore[i][j]
+      return totalScores[i][j]
     }
   },
   getServe({ serves }, { length }) {

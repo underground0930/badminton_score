@@ -20,7 +20,7 @@
       <div class="header__winGames">{{gamesResults[0]}}</div>
       <div class="header__results">
         <div class="header__result" v-for="n in [0,1,2]" :key="n">
-          <span>{{totalScore(n,0)}}</span> - <span>{{totalScore(n,1)}}</span>
+          <span>{{totalScores(n,0)}}</span> - <span>{{totalScores(n,1)}}</span>
         </div>
       </div>
       <div class="header__winGames">{{gamesResults[1]}}</div>
@@ -125,7 +125,7 @@ export default {
   },
   computed: {
     ...mapState(['players', 'serves', 'config', 'gamesResults']),
-    ...mapGetters(['getPlayer', 'totalScore']),
+    ...mapGetters(['getPlayer', 'totalScores']),
   },
   methods: {
     showModal(game) {

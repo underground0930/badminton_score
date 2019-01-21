@@ -42,6 +42,6 @@ td {
 }
 
 .cell {
-  width: 1.5em;
+  width: 1.8em;
 }
 </style>
