@@ -1,11 +1,13 @@
+import { whichPoint } from '../utils'
+
 export default {
   init({ commit }, payload) {
     commit('init', payload)
   },
   setScore({ state, commit, getters, dispatch }, { game, player, index }) {
     const { type, maxPoint, setting } = state.config
-    let isCurrent
-    let isOther
+
+    let which
     let currentTotalPoint
     let otherTotalPoint
     let orderObj = getters.newServeObj(game)
@@ -17,6 +19,7 @@ export default {
     // 直したい点数をロールバックする
     if (
       state.currentIndexs[game] > index &&
+      index > 0 &&
       confirm('クリックした位置まで点数を戻しますか？')
     ) {
       commit('rollbackGameData', { game, index })
@@ -40,27 +43,11 @@ export default {
 
     // どちらのチームに得点が入るか決める
     // isOtherは settingの際に必要
-    if (type === 0) {
-      if (player === 0) {
-        isCurrent = 0
-        isOther = 1
-      } else {
-        isCurrent = 1
-        isOther = 0
-      }
-    } else {
-      if (player < 2) {
-        isCurrent = 0
-        isOther = 1
-      } else {
-        isCurrent = 1
-        isOther = 0
-      }
-    }
+    which = whichPoint(type, player)
 
     // 点数を追加
-    currentTotalPoint = state.totalScores[game][isCurrent] + 1
-    otherTotalPoint = state.totalScores[game][isOther]
+    currentTotalPoint = state.totalScores[game][which.current] + 1
+    otherTotalPoint = state.totalScores[game][which.other]
 
     /// /////// ここにセティングの処理を書く
 
@@ -74,10 +61,16 @@ export default {
     }
 
     if (conditions['a'] || conditions['b'] || conditions['c']) {
-      commit('setGamesResults', { game, isCurrent })
+      commit('setGamesResults', { game, current: which.current })
     }
 
-    commit('setScore', { game, player, index, currentTotalPoint, isCurrent })
+    commit('setScore', {
+      game,
+      player,
+      index,
+      currentTotalPoint,
+      current: which.current,
+    })
   },
   setCurrentOrders({ commit }, { game, add }) {
     commit('setCurrentOrders', { game, add })

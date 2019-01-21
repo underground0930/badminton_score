@@ -1,4 +1,4 @@
-import { score } from '../utils'
+import { score, whichPoint } from '../utils'
 
 export default {
   init(state, payload) {
@@ -19,20 +19,43 @@ export default {
     state.players = players
     state.config = config
   },
-  setScore(state, { game, player, index, currentTotalPoint, isCurrent }) {
-    state.totalScores[game].splice(isCurrent, 1, currentTotalPoint)
+  setScore(state, { game, player, index, currentTotalPoint, current }) {
+    state.totalScores[game].splice(current, 1, currentTotalPoint)
     state.scores[game][player][index]['num'] = currentTotalPoint
     state.currentIndexs[game] = state.currentIndexs[game] + 1
   },
   rollbackGameData(state, { game, index }) {
-    state.currentIndexs[game] = index - 1
-    state.scores[game].forEach((v, i, arr) => {
+    let type = state.config.type
+    let server, serverPoint, serveIndex, which
+    let currentScore = state.scores[game]
+
+    currentScore.forEach((v, i, arr) => {
+      if (v[index - 1].num !== null) {
+        server = i
+        serverPoint = v[index - 1].num
+      }
       let newScore = v.slice()
       newScore.fill({ num: null }, index)
       arr.splice(i, 1, newScore)
     })
+    serveIndex = state.serves[game].indexOf(server)
 
-    /// ////////////
+    which = whichPoint(type, server)
+    let score = []
+    score[which.current] = serverPoint
+    console.log(serverPoint)
+
+    if (type === 0) {
+      score[which.ohter] = Math.max(...currentScore[which.other])
+    } else {
+      const concatOtherArray = currentScore[which.other * 2].concat(
+        currentScore[which.other * 2 + 1]
+      )
+      score[which.ohter] = Math.max(...concatOtherArray)
+    }
+    state.currentOrders[game] = serveIndex
+    state.currentIndexs[game] = index - 1
+    state.totalScores[game] = score
   },
   initGameData(state, { game, serve }) {
     state.currentIndexs[game] = 1
@@ -44,9 +67,9 @@ export default {
       state.gamesEnds[game] = null
     }
   },
-  setGamesResults(state, { game, isCurrent }) {
-    state.gamesResults[isCurrent] += 1
-    state.gamesEnds[game] = isCurrent
+  setGamesResults(state, { game, current }) {
+    state.gamesResults[current] += 1
+    state.gamesEnds[game] = current
   },
   setCurrentOrders(state, { game, add }) {
     if (add) {

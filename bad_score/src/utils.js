@@ -11,3 +11,25 @@ export const score = (v, arr) => {
     return { num: null }
   })
 }
+
+export const whichPoint = (type, player) => {
+  const obj = {}
+  if (type === 0) {
+    if (player === 0) {
+      obj.current = 0
+      obj.other = 1
+    } else {
+      obj.current = 1
+      obj.other = 0
+    }
+  } else {
+    if (player < 2) {
+      obj.current = 0
+      obj.other = 1
+    } else {
+      obj.current = 1
+      obj.other = 0
+    }
+  }
+  return obj
+}
