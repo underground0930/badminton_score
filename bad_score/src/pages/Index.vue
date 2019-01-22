@@ -69,7 +69,7 @@
         </dl>
       </li>
     </ul>
-    <div>
+    <div class="btnWrap">
       <v-btn color="success" :append="true" to="/sheet">スコアをつける</v-btn>
     </div>
   </main>
@@ -104,15 +104,40 @@ export default {
   },
   methods: {
     validateName() {
-      return this.players.every(v => {
+      const result = this.players.every(v => {
         return v.name.trim() !== ''
       })
+      if (!result) {
+        this.errorText = 'メンバーの名前が空欄の箇所があります。'
+        return (this.error = true)
+      }
     },
     validateMaxPoint() {
       const p = this.config.maxPoint
       const min = this.maxPointRange[0]
       const max = this.maxPointRange[1]
-      return p <= max || p <= min
+      const result = p <= max && min <= p
+      if (!result) {
+        this.errorText = `「1ゲームの得点」は${this.maxPointRange[0]}点以上${
+          this.maxPointRange[1]
+        }点以下にしてください。`
+        return (this.error = true)
+      }
+    },
+    validateNumOnly() {
+      const p = String(this.config.maxPoint)
+      console.log(p)
+      if (!p.match(/^[0-9]*$/) || p.trim() === '') {
+        this.errorText = '「1ゲームの得点」は半角英数字のみです'
+        return (this.error = true)
+      }
+    },
+    validateAll() {
+      return [
+        this.validateName,
+        this.validateNumOnly,
+        this.validateMaxPoint,
+      ].some(v => v())
     },
     makePlayer(num) {
       return [...Array(num)].map((v, i) => {
@@ -129,23 +154,14 @@ export default {
     ...mapActions(['init']),
   },
   beforeRouteLeave(to, from, next) {
-    if (!this.validateName()) {
-      this.errorText = 'メンバーの名前が空欄の箇所があります。'
-      this.error = true
-      return
-    } else if (!this.validateMaxPoint()) {
-      this.errorText = `ゲームポイントは${this.maxPointRange[0]}点以上${
-        this.maxPointRange[1]
-      }点以下にしてください。`
-      this.error = true
-      return
-    }
+    if (this.validateAll()) return
+
     if (confirm('上記の設定でスコアシートを作成しますか？')) {
       this.init({ config: this.config, players: this.players })
       next()
-    } else {
-      next(false)
+      return
     }
+    next(false)
   },
 }
 </script>
@@ -153,5 +169,9 @@ export default {
 <style scoped lang="scss">
 ul {
   padding-left: 0;
+}
+.btnWrap {
+  display: flex;
+  justify-content: center;
 }
 </style>
