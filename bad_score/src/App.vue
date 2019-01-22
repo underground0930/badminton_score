@@ -9,6 +9,9 @@
         <small>
           Copyright © 2019 htmlgo.site All rights reserved.
         </small>
+        <div class="twitter">
+          <a href='https://twitter.com/resistance_gowy' target="_blank">@resistance_gowy</a>
+        </div>
         </footer>
     </div>
     </v-app>
@@ -45,5 +48,7 @@ export default {
 .footer {
   padding: 30px 0 0;
   text-align: center;
+}
+.twitter {
 }
 </style>
