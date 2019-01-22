@@ -6,12 +6,13 @@
       <h1 class="mainTitle">バドミントンスコアシート</h1>
       <router-view />
       <footer class="footer">
+        <ul class="footer__links">
+          <li>developer : <a href='https://twitter.com/resistance_gowy' target="_blank">@resistance_gowy</a></li>
+          <li>github : <a href='https://github.com/underground0930/badminton_score' target="_blank">underground0930</a></li>
+        </ul>
         <small>
           Copyright © 2019 htmlgo.site All rights reserved.
         </small>
-        <div class="twitter">
-          <a href='https://twitter.com/resistance_gowy' target="_blank">@resistance_gowy</a>
-        </div>
         </footer>
     </div>
     </v-app>
@@ -49,6 +50,10 @@ export default {
   padding: 30px 0 0;
   text-align: center;
 }
-.twitter {
+.footer__links {
+  margin: 0 0 10px;
+  li {
+    text-align: center;
+  }
 }
 </style>
