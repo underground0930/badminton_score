@@ -49,18 +49,16 @@ export default {
     currentTotalPoint = state.totalScores[game][which.current] + 1
     otherTotalPoint = state.totalScores[game][which.other]
 
-    /// /////// ここにセティングの処理を書く
-
-    const conditions = {
-      a: currentTotalPoint === 30, // 30点は無条件で、終了フラグをたてる
-      b: !setting && currentTotalPoint === maxPoint, // １ゲームの上限に到達したのでゲーム数を加算、終了フラグをたてる
-      c:
-        setting &&
+    const conditions = [
+      currentTotalPoint === 30, // 30点は無条件で、終了フラグをたてる
+      !setting && currentTotalPoint === maxPoint, // １ゲームの上限に到達したのでゲーム数を加算、終了フラグをたてる
+      setting &&
         Math.abs(currentTotalPoint - otherTotalPoint) > 1 &&
         currentTotalPoint >= maxPoint, // セティングありの場合
-    }
+    ]
 
-    if (conditions['a'] || conditions['b'] || conditions['c']) {
+    if (conditions.some(v => v)) {
+      alert(`${game + 1}ゲーム終了です`)
       commit('setGamesResults', { game, current: which.current })
     }
 

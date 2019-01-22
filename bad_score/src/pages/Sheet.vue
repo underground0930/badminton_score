@@ -176,10 +176,12 @@ export default {
   border: 1px solid #000;
   padding: 5px;
   margin: 0 20px 0;
+  font-size: 16px;
   font-weight: bold;
 }
 .header__result {
   text-align: center;
+  font-size: 16px;
 }
 /* score */
 .score__section {
