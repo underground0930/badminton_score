@@ -3,6 +3,7 @@
     <!-- modal -->
     <serve-modal :game="game" :modal="modal" @close="hideModal" />
     <!--/ modal -->
+    <div class="infoText">スマフォを横にしての使用がオススメです</div>
     <!-- setting -->
     <div class="text-xs-center">セティング : <b>{{config.setting ? 'あり' : 'なし'}}</b></div>
     <div class="text-xs-center mb-3">1ゲームの点数 : <b>{{config.maxPoint}}</b></div>
@@ -41,6 +42,7 @@
           <h2 class="score__title title">■1ゲーム目</h2>
           <v-btn color="info" @click="showModal(0)">サーブ権を変更する</v-btn>
         </header>
+        <div class="score__info">※点数を戻したい時は、戻したい列をクリックしてください</div>
         <div class="score__child">
           <div class="score__head">
             <score-head :game="0" :player="0" />
@@ -61,6 +63,7 @@
           <h2 class="score__title title">■2ゲーム目</h2>
           <v-btn color="info" @click="showModal(1)">サーブ権を変更する</v-btn>
         </header>
+        <div class="score__info">※点数を戻したい時は、戻したい列をクリックしてください</div>
         <div class="score__child">
           <div class="score__head">
             <score-head :game="1" :player="0" />
@@ -81,6 +84,7 @@
           <h2 class="score__title title">■3ゲーム目</h2>
           <v-btn color="info" @click="showModal(2)">サーブ権を変更する</v-btn>
         </header>
+        <div class="score__info">※点数を戻したい時は、戻したい列をクリックしてください</div>
         <div class="score__child">
           <div class="score__head">
             <score-head :game="2" :player="0" />
@@ -99,7 +103,7 @@
     </div>
     <!--/ score -->
     <div class="initBtn">
-      <v-btn color="error" :append="true" to="/">スコアの初期化</v-btn>
+      <v-btn color="error" :append="true" to="/">設定とスコアの初期化</v-btn>
     </div>
   </main>
 </template>
@@ -155,6 +159,15 @@ export default {
 </script>
 
 <style scoped lang="scss">
+.infoText {
+  color: #f00;
+  text-align: center;
+  font-weight: bold;
+  margin: 0 0 20px;
+  @media screen and (orientation: landscape) {
+    display: none;
+  }
+}
 /* header */
 .header {
   display: flex;
@@ -190,10 +203,15 @@ export default {
 .score__header {
   display: flex;
   align-items: center;
-  margin: 0 0 10px;
+  margin: 0 0 5px;
 }
 .score__title {
   margin: 0 10px 0 0;
+}
+.score__info {
+  margin: 0 0 5px;
+  font-size: 10px;
+  font-weight: bold;
 }
 .score__child {
   position: relative;

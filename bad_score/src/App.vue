@@ -37,7 +37,7 @@ export default {
 .mainTitle {
   font-size: 20px;
   font-weight: bold;
-  margin: 0 0 30px;
+  margin: 0 0 20px;
   text-align: center;
 }
 .infoBtn {
