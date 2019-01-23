@@ -41,6 +41,7 @@
         <header class="score__header">
           <h2 class="score__title title">■1ゲーム目</h2>
           <v-btn color="info" @click="showModal(0)">サーブ権を変更する</v-btn>
+          <v-btn color="error" @click="resetScore(0)">スコアをリセットする</v-btn>
         </header>
         <div class="score__info">※点数を戻したい時は、戻したい列をクリックしてください</div>
         <div class="score__child">
@@ -62,6 +63,7 @@
         <header class="score__header">
           <h2 class="score__title title">■2ゲーム目</h2>
           <v-btn color="info" @click="showModal(1)">サーブ権を変更する</v-btn>
+          <v-btn color="error" @click="resetScore(1)">スコアをリセットする</v-btn>
         </header>
         <div class="score__info">※点数を戻したい時は、戻したい列をクリックしてください</div>
         <div class="score__child">
@@ -83,6 +85,7 @@
         <header class="score__header">
           <h2 class="score__title title">■3ゲーム目</h2>
           <v-btn color="info" @click="showModal(2)">サーブ権を変更する</v-btn>
+          <v-btn color="error" @click="resetScore(2)">スコアをリセットする</v-btn>
         </header>
         <div class="score__info">※点数を戻したい時は、戻したい列をクリックしてください</div>
         <div class="score__child">
@@ -135,13 +138,18 @@ export default {
     ...mapGetters(['getPlayer', 'totalScores']),
   },
   methods: {
-    ...mapActions(['initAllGameData']),
+    ...mapActions(['initGameData', 'initAllGameData']),
     showModal(game) {
       this.game = game
       this.modal = true
     },
     hideModal(game) {
       this.modal = false
+    },
+    resetScore(game) {
+      if (confirm(`${game + 1}ゲームのスコアをリセットしますか?`)) {
+        this.initGameData({ game: game, serve: null, add: false })
+      }
     },
   },
   beforeRouteEnter(to, from, next) {

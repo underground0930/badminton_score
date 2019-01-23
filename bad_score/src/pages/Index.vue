@@ -126,7 +126,6 @@ export default {
     },
     validateNumOnly() {
       const p = String(this.config.maxPoint)
-      console.log(p)
       if (!p.match(/^[0-9]*$/) || p.trim() === '') {
         this.errorText = '「1ゲームの得点」は半角英数字のみです'
         return (this.error = true)
