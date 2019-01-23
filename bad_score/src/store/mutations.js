@@ -65,10 +65,11 @@ export default {
     state.totalScores.splice(game, 1, score)
   },
   initGameData(state, { game, serve }) {
+    const newServe = serve || state.serves[game].slice()
     state.currentIndexs[game] = 1
     state.totalScores.splice(game, 1, [0, 0])
-    state.scores.splice(game, 1, serve.map(v => score(v, serve)))
-    state.serves.splice(game, 1, serve)
+    state.scores.splice(game, 1, newServe.map(v => score(v, newServe)))
+    if (serve) state.serves.splice(game, 1, serve)
     if (state.gamesEnds[game] !== null) {
       state.gamesResults[state.gamesEnds[game]] -= 1
       state.gamesEnds[game] = null

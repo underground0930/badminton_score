@@ -92,20 +92,17 @@ export default {
     closeModal() {
       this.$emit('close')
     },
-
     checkSubmit() {
-      if (this.serveS === this.serveR) {
+      const len = this.players.length
+      const s = this.serveS
+      const r = this.serveR
+      if (s === r) {
         alert('サーバーとレシーバーが同一人物です')
         return false
       }
-      if (this.players.length === 4) {
-        if (
-          this.serveS + this.serveR === 1 ||
-          this.serveS + this.serveR === 5
-        ) {
-          alert('同チームでのサービス、レシーブは不正です')
-          return false
-        }
+      if (len === 4 && (s + r === 1 || s + r === 5)) {
+        alert('同チームでのサービス、レシーブは不正です')
+        return false
       }
       return true
     },
@@ -113,31 +110,35 @@ export default {
       if (!this.checkSubmit()) return
       if (!confirm('点数が0にリセットされますがよろしいですか？')) return
 
-      let newServe = []
-      if (this.players.length === 2) {
+      let newServe
+      const len = this.players.length
+      const s = this.serveS
+      const r = this.serveR
+
+      if (len === 2) {
         // singles
-        if (this.serveS === 0) {
+        if (s === 0) {
           newServe = [0, 1]
         } else {
           newServe = [1, 0]
         }
       } else {
         // doubles
-        if (this.serveS === 0 && this.serveR === 2) {
+        if (s === 0 && r === 2) {
           newServe = [0, 2, 3, 1]
-        } else if (this.serveS === 0 && this.serveR === 3) {
+        } else if (s === 0 && r === 3) {
           newServe = [0, 2, 1, 3]
-        } else if (this.serveS === 1 && this.serveR === 2) {
+        } else if (s === 1 && r === 2) {
           newServe = [2, 0, 3, 1]
-        } else if (this.serveS === 1 && this.serveR === 3) {
+        } else if (s === 1 && r === 3) {
           newServe = [2, 0, 1, 3]
-        } else if (this.serveS === 2 && this.serveR === 0) {
+        } else if (s === 2 && r === 0) {
           newServe = [3, 1, 0, 2]
-        } else if (this.serveS === 2 && this.serveR === 1) {
+        } else if (s === 2 && r === 1) {
           newServe = [1, 3, 0, 2]
-        } else if (this.serveS === 3 && this.serveR === 0) {
+        } else if (s === 3 && r === 0) {
           newServe = [3, 1, 2, 0]
-        } else if (this.serveS === 3 && this.serveR === 1) {
+        } else if (s === 3 && r === 1) {
           newServe = [1, 3, 2, 0]
         }
       }

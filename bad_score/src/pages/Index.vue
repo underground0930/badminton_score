@@ -45,7 +45,7 @@
       </li>
       <li class="list">
         <dl class="list__child">
-          <dt class="subheading">●セティング<span>【max30点で終了です】</span></dt>
+          <dt class="subheading">●セティング</dt>
           <dd>
             <v-radio-group v-model="config.setting">
               <v-radio
@@ -60,9 +60,26 @@
           </dd>
         </dl>
       </li>
+      <li class="list" v-if="config.setting === 1">
+        <dl class="list__child">
+          <dt class="subheading">●セティング時の上限【1ゲームの得点より大きくする】</dt>
+          <dd>
+            <v-radio-group v-model="config.maxSetting">
+              <v-radio
+                label="21点"
+                :value="21"
+              ></v-radio>
+              <v-radio
+                label="30点"
+                :value="30"
+              ></v-radio>
+            </v-radio-group>
+          </dd>
+        </dl>
+      </li>
       <li class="list">
         <dl>
-          <dt class="subheading">●1ゲームの得点<span>{{`【${maxPointRange[0]} ~ ${maxPointRange[1]}点の間で指定してください】`}}</span></dt>
+          <dt class="subheading">●1ゲームの得点<span>{{`【${maxPointRange[0]} ~ ${maxPointRange[1]}点の間で指定】`}}</span></dt>
           <dd>
             <v-text-field type="number" :max="maxPointRange[1]" :min="maxPointRange[0]" v-model="config.maxPoint"></v-text-field>
           </dd>
@@ -89,6 +106,7 @@ export default {
         type: 0,
         setting: 1,
         maxPoint: 21,
+        maxSetting: 30,
       },
       players: [],
       maxPointRange: [5, 30],
@@ -124,9 +142,19 @@ export default {
         return (this.error = true)
       }
     },
+    validateMaxSetting() {
+      const setting = this.config.setting
+      const p = this.config.maxPoint
+      const s = this.config.maxSetting
+      console.log(p, s)
+      if (setting && p > s) {
+        this.errorText =
+          '「セティング時の上限」は「1ゲームの得点」以上の点数にしてください'
+        return (this.error = true)
+      }
+    },
     validateNumOnly() {
       const p = String(this.config.maxPoint)
-      console.log(p)
       if (!p.match(/^[0-9]*$/) || p.trim() === '') {
         this.errorText = '「1ゲームの得点」は半角英数字のみです'
         return (this.error = true)
@@ -137,6 +165,7 @@ export default {
         this.validateName,
         this.validateNumOnly,
         this.validateMaxPoint,
+        this.validateMaxSetting,
       ].some(v => v())
     },
     makePlayer(num) {

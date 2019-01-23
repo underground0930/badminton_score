@@ -5,7 +5,7 @@ export default {
     commit('init', payload)
   },
   setScore({ state, commit, getters, dispatch }, { game, player, index }) {
-    const { type, maxPoint, setting } = state.config
+    const { type, maxPoint, setting, maxSetting } = state.config
 
     let which
     let currentTotalPoint
@@ -50,7 +50,7 @@ export default {
     otherTotalPoint = state.totalScores[game][which.other]
 
     const conditions = [
-      currentTotalPoint === 30, // 30点は無条件で、終了フラグをたてる
+      currentTotalPoint === maxSetting, // 上限に達したら、終了フラグをたてる
       !setting && currentTotalPoint === maxPoint, // １ゲームの上限に到達したのでゲーム数を加算、終了フラグをたてる
       setting &&
         Math.abs(currentTotalPoint - otherTotalPoint) > 1 &&
