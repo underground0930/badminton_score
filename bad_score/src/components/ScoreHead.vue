@@ -1,8 +1,8 @@
 <template>
   <table>
     <tr>
-      <th class="name">{{getPlayer(player)['name']}}</th>
-      <td class="serve">{{getServe(game,player)}}</td>
+      <th class="name">{{ getPlayer(player)['name'] }}</th>
+      <td class="serve">{{ getServe(game, player) }}</td>
     </tr>
   </table>
 </template>

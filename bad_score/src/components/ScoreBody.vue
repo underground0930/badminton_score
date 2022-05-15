@@ -1,8 +1,13 @@
 <template>
   <table>
     <tr>
-      <td :class="`cell ${item.index}`" v-for="item in scores[game][player]" :key="item.index" @click="setScore({ game, player, index:item.index })">
-        {{item.num}}
+      <td
+        :class="`cell ${item.index}`"
+        v-for="item in scores[game][player]"
+        :key="item.index"
+        @click="setScore({ game, player, index: item.index })"
+      >
+        {{ item.num }}
       </td>
     </tr>
   </table>

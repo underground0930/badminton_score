@@ -5,32 +5,42 @@
     <!--/ modal -->
     <div class="infoText">スマフォを横にしての使用がオススメです</div>
     <!-- setting -->
-    <div class="text-xs-center">セティング : <b>{{config.setting ? 'あり' : 'なし'}}</b></div>
-    <div class="text-xs-center mb-3">1ゲームの点数 : <b>{{config.maxPoint}}</b></div>
+    <div class="text-xs-center">
+      セティング : <b>{{ config.setting ? 'あり' : 'なし' }}</b>
+    </div>
+    <div class="text-xs-center mb-3">
+      1ゲームの点数 : <b>{{ config.maxPoint }}</b>
+    </div>
     <!--/ setting -->
     <!-- header -->
     <header class="header">
       <div class="header__names">
         <div class="header__name">
-          <span v-if="getPlayer(0).team">{{getPlayer(0).team}}・</span>{{getPlayer(0).name}}
+          <span v-if="getPlayer(0).team">{{ getPlayer(0).team }}・</span
+          >{{ getPlayer(0).name }}
         </div>
         <div class="header__name" v-if="config.type === 1">
-          <span v-if="getPlayer(1).team">{{getPlayer(1).team}}・</span>{{getPlayer(1).name}}
+          <span v-if="getPlayer(1).team">{{ getPlayer(1).team }}・</span
+          >{{ getPlayer(1).name }}
         </div>
       </div>
-      <div class="header__winGames">{{gamesResults[0]}}</div>
+      <div class="header__winGames">{{ gamesResults[0] }}</div>
       <div class="header__results">
-        <div class="header__result" v-for="n in [0,1,2]" :key="n">
-          <span>{{totalScores(n,0)}}</span> - <span>{{totalScores(n,1)}}</span>
+        <div class="header__result" v-for="n in [0, 1, 2]" :key="n">
+          <span>{{ totalScores(n, 0) }}</span> -
+          <span>{{ totalScores(n, 1) }}</span>
         </div>
       </div>
-      <div class="header__winGames">{{gamesResults[1]}}</div>
+      <div class="header__winGames">{{ gamesResults[1] }}</div>
       <div class="header__names">
         <div class="header__name">
-          <span v-if="getPlayer(config.type === 1 ? 2 : 1).team">{{getPlayer(config.type === 1 ? 2 : 1).team}}・</span>{{getPlayer(config.type === 1 ? 2 : 1).name}}
+          <span v-if="getPlayer(config.type === 1 ? 2 : 1).team"
+            >{{ getPlayer(config.type === 1 ? 2 : 1).team }}・</span
+          >{{ getPlayer(config.type === 1 ? 2 : 1).name }}
         </div>
         <div class="header__name" v-if="config.type === 1">
-          <span v-if="getPlayer(3).team">{{getPlayer(3).team}}・</span>{{getPlayer(3).name}}
+          <span v-if="getPlayer(3).team">{{ getPlayer(3).team }}・</span
+          >{{ getPlayer(3).name }}
         </div>
       </div>
     </header>
@@ -41,9 +51,13 @@
         <header class="score__header">
           <h2 class="score__title title">■1ゲーム目</h2>
           <v-btn color="info" @click="showModal(0)">サーブ権を変更する</v-btn>
-          <v-btn color="error" @click="resetScore(0)">スコアをリセットする</v-btn>
+          <v-btn color="error" @click="resetScore(0)"
+            >スコアをリセットする</v-btn
+          >
         </header>
-        <div class="score__info">※点数を戻したい時は、戻したい列をクリックしてください</div>
+        <div class="score__info">
+          ※点数を戻したい時は、戻したい列をクリックしてください
+        </div>
         <div class="score__child">
           <div class="score__head">
             <score-head :game="0" :player="0" />
@@ -63,9 +77,13 @@
         <header class="score__header">
           <h2 class="score__title title">■2ゲーム目</h2>
           <v-btn color="info" @click="showModal(1)">サーブ権を変更する</v-btn>
-          <v-btn color="error" @click="resetScore(1)">スコアをリセットする</v-btn>
+          <v-btn color="error" @click="resetScore(1)"
+            >スコアをリセットする</v-btn
+          >
         </header>
-        <div class="score__info">※点数を戻したい時は、戻したい列をクリックしてください</div>
+        <div class="score__info">
+          ※点数を戻したい時は、戻したい列をクリックしてください
+        </div>
         <div class="score__child">
           <div class="score__head">
             <score-head :game="1" :player="0" />
@@ -85,9 +103,13 @@
         <header class="score__header">
           <h2 class="score__title title">■3ゲーム目</h2>
           <v-btn color="info" @click="showModal(2)">サーブ権を変更する</v-btn>
-          <v-btn color="error" @click="resetScore(2)">スコアをリセットする</v-btn>
+          <v-btn color="error" @click="resetScore(2)"
+            >スコアをリセットする</v-btn
+          >
         </header>
-        <div class="score__info">※点数を戻したい時は、戻したい列をクリックしてください</div>
+        <div class="score__info">
+          ※点数を戻したい時は、戻したい列をクリックしてください
+        </div>
         <div class="score__child">
           <div class="score__head">
             <score-head :game="2" :player="0" />

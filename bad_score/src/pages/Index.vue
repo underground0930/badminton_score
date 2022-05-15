@@ -1,20 +1,18 @@
 <template>
   <main>
-    <alert-modal :error="error" :errorText="errorText" @closeError="error = false" />
+    <alert-modal
+      :error="error"
+      :errorText="errorText"
+      @closeError="error = false"
+    />
     <ul class="lists">
       <li class="list">
         <dl class="list__child">
           <dt class="subheading">●種目</dt>
           <dd>
             <v-radio-group v-model="config.type" @change="updatePlayers">
-              <v-radio
-                label="シングルス"
-                :value="0"
-              ></v-radio>
-              <v-radio
-                label="ダブルス"
-                :value="1"
-              ></v-radio>
+              <v-radio label="シングルス" :value="0"></v-radio>
+              <v-radio label="ダブルス" :value="1"></v-radio>
             </v-radio-group>
           </dd>
         </dl>
@@ -24,21 +22,46 @@
           <dt class="subheading">●メンバー【名前は必須、チーム名は省略可】</dt>
           <dd class="member">
             <div>
-              <v-text-field label="チームA" v-model="players[0].team"></v-text-field>
-              <v-text-field label="名前1" v-model="players[0].name"></v-text-field>
+              <v-text-field
+                label="チームA"
+                v-model="players[0].team"
+              ></v-text-field>
+              <v-text-field
+                label="名前1"
+                v-model="players[0].name"
+              ></v-text-field>
             </div>
             <div v-if="config.type === 1">
-              <v-text-field label="チームA" v-model="players[1].team"></v-text-field>
-              <v-text-field label="名前2" v-model="players[1].name"></v-text-field>
+              <v-text-field
+                label="チームA"
+                v-model="players[1].team"
+              ></v-text-field>
+              <v-text-field
+                label="名前2"
+                v-model="players[1].name"
+              ></v-text-field>
             </div>
             <div :class="['pt-3']" class="text-xs-center headline">VS</div>
             <div>
-              <v-text-field :class="['pt-0']" label="チームB" v-model="players[config.type === 1 ? 2 : 1].team"></v-text-field>
-              <v-text-field label="名前3" v-model="players[config.type === 1 ? 2 : 1].name"></v-text-field>
+              <v-text-field
+                :class="['pt-0']"
+                label="チームB"
+                v-model="players[config.type === 1 ? 2 : 1].team"
+              ></v-text-field>
+              <v-text-field
+                label="名前3"
+                v-model="players[config.type === 1 ? 2 : 1].name"
+              ></v-text-field>
             </div>
             <div v-if="config.type === 1">
-              <v-text-field label="チームB" v-model="players[3].team"></v-text-field>
-              <v-text-field label="名前4" v-model="players[3].name"></v-text-field>
+              <v-text-field
+                label="チームB"
+                v-model="players[3].team"
+              ></v-text-field>
+              <v-text-field
+                label="名前4"
+                v-model="players[3].name"
+              ></v-text-field>
             </div>
           </dd>
         </dl>
@@ -48,40 +71,39 @@
           <dt class="subheading">●セティング</dt>
           <dd>
             <v-radio-group v-model="config.setting">
-              <v-radio
-                label="なし"
-                :value="0"
-              ></v-radio>
-              <v-radio
-                label="あり"
-                :value="1"
-              ></v-radio>
+              <v-radio label="なし" :value="0"></v-radio>
+              <v-radio label="あり" :value="1"></v-radio>
             </v-radio-group>
           </dd>
         </dl>
       </li>
       <li class="list" v-if="config.setting === 1">
         <dl class="list__child">
-          <dt class="subheading">●セティング時の上限【1ゲームの得点より大きくする】</dt>
+          <dt class="subheading">
+            ●セティング時の上限【1ゲームの得点より大きくする】
+          </dt>
           <dd>
             <v-radio-group v-model="config.maxSetting">
-              <v-radio
-                label="21点"
-                :value="21"
-              ></v-radio>
-              <v-radio
-                label="30点"
-                :value="30"
-              ></v-radio>
+              <v-radio label="21点" :value="21"></v-radio>
+              <v-radio label="30点" :value="30"></v-radio>
             </v-radio-group>
           </dd>
         </dl>
       </li>
       <li class="list">
         <dl>
-          <dt class="subheading">●1ゲームの得点<span>{{`【${maxPointRange[0]} ~ ${maxPointRange[1]}点の間で指定】`}}</span></dt>
+          <dt class="subheading">
+            ●1ゲームの得点<span>{{
+              `【${maxPointRange[0]} ~ ${maxPointRange[1]}点の間で指定】`
+            }}</span>
+          </dt>
           <dd>
-            <v-text-field type="number" :max="maxPointRange[1]" :min="maxPointRange[0]" v-model="config.maxPoint"></v-text-field>
+            <v-text-field
+              type="number"
+              :max="maxPointRange[1]"
+              :min="maxPointRange[0]"
+              v-model="config.maxPoint"
+            ></v-text-field>
           </dd>
         </dl>
       </li>
@@ -122,7 +144,7 @@ export default {
   },
   methods: {
     validateName() {
-      const result = this.players.every(v => {
+      const result = this.players.every((v) => {
         return v.name.trim() !== ''
       })
       if (!result) {
@@ -136,9 +158,7 @@ export default {
       const max = this.maxPointRange[1]
       const result = p <= max && min <= p
       if (!result) {
-        this.errorText = `「1ゲームの得点」は${this.maxPointRange[0]}点以上${
-          this.maxPointRange[1]
-        }点以下にしてください。`
+        this.errorText = `「1ゲームの得点」は${this.maxPointRange[0]}点以上${this.maxPointRange[1]}点以下にしてください。`
         return (this.error = true)
       }
     },
@@ -166,7 +186,7 @@ export default {
         this.validateNumOnly,
         this.validateMaxPoint,
         this.validateMaxSetting,
-      ].some(v => v())
+      ].some((v) => v())
     },
     makePlayer(num) {
       return [...Array(num)].map((v, i) => {

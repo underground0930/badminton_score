@@ -1,6 +1,6 @@
 export default {
   getPlayer: ({ players }) => {
-    return index => {
+    return (index) => {
       return players[index]
     }
   },
@@ -33,7 +33,7 @@ export default {
     }
   },
   newServeObj({ serves }) {
-    return game => {
+    return (game) => {
       const obj = {}
       serves[game].forEach((v, i) => {
         obj[v] = i

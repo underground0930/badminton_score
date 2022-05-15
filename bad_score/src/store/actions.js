@@ -57,7 +57,7 @@ export default {
         currentTotalPoint >= maxPoint, // セティングありの場合
     ]
 
-    if (conditions.some(v => v)) {
+    if (conditions.some((v) => v)) {
       alert(`${game + 1}ゲーム終了です`)
       commit('setGamesResults', { game, current: which.current })
     }

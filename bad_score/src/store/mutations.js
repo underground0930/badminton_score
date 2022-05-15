@@ -12,9 +12,9 @@ export default {
     }
     state.serves = [serve, serve, serve]
     state.scores = [
-      serve.map(v => score(v, serve)),
-      serve.map(v => score(v, serve)),
-      serve.map(v => score(v, serve)),
+      serve.map((v) => score(v, serve)),
+      serve.map((v) => score(v, serve)),
+      serve.map((v) => score(v, serve)),
     ]
     state.players = players
     state.config = config
@@ -68,7 +68,11 @@ export default {
     const newServe = serve || state.serves[game].slice()
     state.currentIndexs[game] = 1
     state.totalScores.splice(game, 1, [0, 0])
-    state.scores.splice(game, 1, newServe.map(v => score(v, newServe)))
+    state.scores.splice(
+      game,
+      1,
+      newServe.map((v) => score(v, newServe))
+    )
     if (serve) state.serves.splice(game, 1, serve)
     if (state.gamesEnds[game] !== null) {
       state.gamesResults[state.gamesEnds[game]] -= 1
@@ -78,7 +82,11 @@ export default {
   initAllGameData(state) {
     state.currentIndexs = [1, 1, 1]
     state.currentOrders = [0, 0, 0]
-    state.totalScores = [[0, 0], [0, 0], [0, 0]]
+    state.totalScores = [
+      [0, 0],
+      [0, 0],
+      [0, 0],
+    ]
     state.gamesResults = [0, 0]
     state.gamesEnds = [null, null, null]
   },

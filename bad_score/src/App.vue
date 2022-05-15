@@ -1,21 +1,34 @@
 <template>
   <div id="app">
     <v-app>
-    <div class="wrapper">
-      <!-- <v-icon class="infoBtn" large>info</v-icon> -->
-      <h1 class="mainTitle">バドミントンスコアシート</h1>
-      <router-view />
-      <footer class="footer">
-        <ul class="footer__links">
-          <li>developer : <a href='https://twitter.com/resistance_gowy' target="_blank">@resistance_gowy</a></li>
-          <li>github : <a href='https://github.com/underground0930/badminton_score' target="_blank">underground0930</a></li>
-          <li><a :href="twitterLink" target="_blank">Share on Twitter</a> | <a :href="facebookLink" target="_blank">Share on Facebook</a></li>
-        </ul>
-        <small>
-          Copyright © 2019 htmlgo.site All rights reserved.
-        </small>
+      <div class="wrapper">
+        <!-- <v-icon class="infoBtn" large>info</v-icon> -->
+        <h1 class="mainTitle">バドミントンスコアシート</h1>
+        <router-view />
+        <footer class="footer">
+          <ul class="footer__links">
+            <li>
+              developer :
+              <a href="https://twitter.com/resistance_gowy" target="_blank"
+                >@resistance_gowy</a
+              >
+            </li>
+            <li>
+              github :
+              <a
+                href="https://github.com/underground0930/badminton_score"
+                target="_blank"
+                >underground0930</a
+              >
+            </li>
+            <li>
+              <a :href="twitterLink" target="_blank">Share on Twitter</a> |
+              <a :href="facebookLink" target="_blank">Share on Facebook</a>
+            </li>
+          </ul>
+          <small> Copyright © 2019 htmlgo.site All rights reserved. </small>
         </footer>
-    </div>
+      </div>
     </v-app>
   </div>
 </template>
@@ -25,7 +38,7 @@ import './assets/css/reset.css'
 const url = 'https://badminton.htmlgo.site/'
 export default {
   name: 'app',
-  data: function() {
+  data: function () {
     return {
       twitterLink: '',
       facebookLink: '',

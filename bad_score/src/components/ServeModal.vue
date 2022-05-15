@@ -1,61 +1,43 @@
 <template>
-    <v-dialog
-      v-model="modal"
-      width="280"
-      >
-      <v-card>
-        <v-card-title
-          class="title grey lighten-2 text-xs-center"
-          primary-title
-        >
-          サーブ権 {{game + 1}}ゲーム目
-        </v-card-title>
-        <v-card-text>
-          <ul class="modal__lists">
-            <li class="modal__list">
-              <span class="subTitle">【S】サーブ</span>
-              <v-select
-                v-model.number="serveS"
-                :items="players"
-                item-text="name"
-                item-value="index"
-                label="[S]サーブ"
-                single-line
-              ></v-select>
-            </li>
-            <li class="modal__list">
-              <span class="subTitle">【R】レシーブ</span>
-              <v-select
-                v-model.number="serveR"
-                :items="players"
-                item-text="name"
-                item-value="index"
-                label="[R]レシーブ"
-                single-line
-              ></v-select>
-            </li>
-          </ul>
-        </v-card-text>
-        <v-divider></v-divider>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="primary"
-            flat
-            @click="updateServe"
-          >
-            変更する
-          </v-btn>
-          <v-btn
-            color="primary"
-            flat
-            @click="closeModal"
-          >
-            閉じる
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+  <v-dialog v-model="modal" width="280">
+    <v-card>
+      <v-card-title class="title grey lighten-2 text-xs-center" primary-title>
+        サーブ権 {{ game + 1 }}ゲーム目
+      </v-card-title>
+      <v-card-text>
+        <ul class="modal__lists">
+          <li class="modal__list">
+            <span class="subTitle">【S】サーブ</span>
+            <v-select
+              v-model.number="serveS"
+              :items="players"
+              item-text="name"
+              item-value="index"
+              label="[S]サーブ"
+              single-line
+            ></v-select>
+          </li>
+          <li class="modal__list">
+            <span class="subTitle">【R】レシーブ</span>
+            <v-select
+              v-model.number="serveR"
+              :items="players"
+              item-text="name"
+              item-value="index"
+              label="[R]レシーブ"
+              single-line
+            ></v-select>
+          </li>
+        </ul>
+      </v-card-text>
+      <v-divider></v-divider>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="primary" flat @click="updateServe"> 変更する </v-btn>
+        <v-btn color="primary" flat @click="closeModal"> 閉じる </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script>
@@ -80,7 +62,7 @@ export default {
     initModal(game) {
       let count = 0
       const len = this.serves[game].length
-      this.serves[game].forEach(v => {
+      this.serves[game].forEach((v) => {
         if (v === 0) {
           this.serveS = count
         } else if ((len === 2 && v === 1) || v === 3) {
