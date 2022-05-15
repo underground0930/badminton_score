@@ -59,3 +59,8 @@ typings/
 
 # next.js build output
 .next
+
+# project
+.DS_Store
+node_modules
+/dist
